@@ -1,10 +1,20 @@
 //===================================================
-// quests.dm
+// churchquests.dm
 //=============================================
 // -----------------------------------------------------
 // HELP ME
 // -----------------------------------------------
 
+/proc/html_attr(t as text)
+	if(!istext(t))
+		return ""
+	var/s = "[t]"
+	s = replacetext(s, "&", "&amp;")
+	s = replacetext(s, "<", "&lt;")
+	s = replacetext(s, ">", "&gt;")
+	s = replacetext(s, "\"", "&quot;")
+	s = replacetext(s, "'", "&#39;")
+	return s
 
 /proc/_is_digit_string(t)
 	if(!istext(t)) return FALSE
@@ -35,7 +45,40 @@
 /proc/_apply_parish_boon(H)
 	if(!istype(H, /mob/living/carbon/human)) return
 	var/mob/living/carbon/human/HH = H
-	HH.apply_status_effect(/datum/status_effect/buff/parish_boon)
+	if(!HH.has_status_effect(/datum/status_effect/buff/parish_boon))
+		HH.apply_status_effect(/datum/status_effect/buff/parish_boon)
+
+/proc/_apply_parish_scorn(H)
+	if(!istype(H, /mob/living/carbon/human)) return
+	var/mob/living/carbon/human/HH = H
+	if(!HH.has_status_effect(/datum/status_effect/debuff/parish_scorn))
+		HH.apply_status_effect(/datum/status_effect/debuff/parish_scorn)
+
+/proc/_has_quest_target_mark(H)
+	if(!istype(H, /mob/living/carbon/human)) return FALSE
+	var/mob/living/carbon/human/HH = H
+	if(HH.has_status_effect(/datum/status_effect/buff/parish_boon))
+		return TRUE
+	if(HH.has_status_effect(/datum/status_effect/debuff/parish_scorn))
+		return TRUE
+	return FALSE
+
+/proc/_quest_user_in_combat_mode(mob/M)
+	if(!M) return FALSE
+
+	if("combat_mode" in M.vars)
+		var/v1 = M.vars["combat_mode"]
+		if(v1) return TRUE
+
+	if("cmode" in M.vars)
+		var/v2 = M.vars["cmode"]
+		if(v2) return TRUE
+
+	if("c_mode" in M.vars)
+		var/v3 = M.vars["c_mode"]
+		if(v3) return TRUE
+
+	return FALSE
 
 /proc/_is_antagonist(H)
 	if(!istype(H, /mob/living/carbon/human)) return FALSE
@@ -203,9 +246,6 @@
 	qdel(Jtmp)
 	return name_out
 
-
-// Yiff checks
-
 /proc/_mob_matches_any_job(mob/living/carbon/human/H, list/required_job_types)
 	if(!istype(H, /mob/living/carbon/human))
 		return FALSE
@@ -295,12 +335,9 @@
 	return FALSE
 
 /proc/_rt_antag_tier(mob/living/carbon/human/H)
-	if(_rt_mob_has_antag_datum(H, /datum/antagonist/lich))        return 3
-
-	if(_rt_mob_has_antag_datum(H, /datum/antagonist/werewolf))                     return 2
-
+	if(_rt_mob_has_antag_datum(H, /datum/antagonist/lich)) return 3
+	if(_rt_mob_has_antag_datum(H, /datum/antagonist/werewolf)) return 2
 	if(_rt_is_bandit_or_wretch(H)) return 1
-
 	return 0
 
 /proc/_rt_pick_unique(list/src_list, count)
@@ -419,21 +456,20 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 
 // ---------------------------------------------------------------------
 //
-//  THE QUEST TOKEN TREE SHIT STARTS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+//  THE QUEST TOKEN TREE SHIT STARTS HERE
 //
 // ---------------------------------------------------------------------
 
 /obj/item/quest_token
 	name = "quest token"
-	desc = "A token tied to a task. Report to local admin if you see this to get ERP token"
+	desc = "A token tied to a task."
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
-	var/owner_ckey  = ""
-	var/owner_name  = ""
-	var/delete_at   = 0
-
+	var/owner_ckey = ""
+	var/owner_name = ""
 	var/reward_amount = 250
+	var/in_use = FALSE
 
 /obj/item/quest_token/Initialize()
 	. = ..()
@@ -453,12 +489,6 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!length(owner_name))
 		owner_name = "unknown"
 
-	delete_at = world.time + (3 * 60 * 10)
-	addtimer(CALLBACK(src, PROC_REF(_maybe_qdel_self)), 10, TIMER_LOOP)
-
-	if(length(owner_ckey))
-		_start_owner_watch()
-
 /obj/item/quest_token/proc/set_owner(mob/living/carbon/human/H)
 	if(!H) return
 	if(H.client)
@@ -466,46 +496,19 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	else if(istext(H.key))
 		owner_ckey = ckey(H.key)
 	owner_name = H.real_name || H.name || owner_ckey
-	_start_owner_watch()
 
-/obj/item/quest_token/proc/_start_owner_watch()
-	spawn(0)
-		while(src)
-			if(!length(owner_ckey))
-				qdel(src)
-				return
-
-			var/found = FALSE
-			for(var/mob/living/carbon/human/H in world)
-				if(H.client && H.client.ckey == owner_ckey)
-					found = TRUE
-					break
-
-			if(!found)
-				qdel(src)
-				return
-
-			sleep(50)
-
-/obj/item/quest_token/proc/_maybe_qdel_self()
-	if(QDELETED(src)) return
-	if(world.time >= delete_at)
-		qdel(src)
-
-/obj/item/quest_token/proc/_payout(amount)
+/obj/item/quest_token/proc/_payout(amount, mob/living/carbon/human/completer)
 	if(!amount) return
-	if(!length(owner_ckey)) return
+	if(!istype(completer, /mob/living/carbon/human)) return
 
-	for(var/mob/living/carbon/human/HH in world)
-		if(!HH.client) continue
-		if(HH.client.ckey != owner_ckey) continue
-
-		HH.church_favor += amount
-		to_chat(HH, span_notice("+[amount] Favor for completing a miracle quest."))
-		return
+	completer.church_favor += amount
+	to_chat(completer, span_notice("+[amount] Favor for completing a miracle quest."))
 
 /obj/item/quest_token/proc/_ensure_attacker(user)
-	if(!user || !ismob(user)) return FALSE
+	if(!istype(user, /mob/living/carbon/human))
+		return FALSE
+	if(in_use)
+		return FALSE
 	return TRUE
 
 /obj/item/quest_token/proc/_ensure_target_player(H, user)
@@ -518,58 +521,74 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		to_chat(user, span_warning("Target must be a player."))
 		return FALSE
 
-	if(HAS_TRAIT(HH, TRAIT_CLERGYRADICAL))
-		to_chat(user, span_warning("Fellow kindreds cannot contribute."))
+	if(_has_quest_target_mark(HH))
+		to_chat(user, span_warning("This target is already marked by a previous quest."))
 		return FALSE
 
 	return TRUE
 
+/obj/item/quest_token/proc/_check_distance(mob/living/user, mob/living/target)
+	if(!user || !target) return FALSE
+	if(get_dist(user, target) > 1)
+		to_chat(user, span_warning("Too far away."))
+		return FALSE
+	return TRUE
 
-// ---------------------------------------------------------------------
-// QUEST MY TOKENS
-// ---------------------------------------------------------------------
+/obj/item/quest_token/proc/_complete_target_quest(mob/living/carbon/human/H, mob/living/carbon/human/user)
+	if(!istype(H, /mob/living/carbon/human)) return FALSE
+	if(!istype(user, /mob/living/carbon/human)) return FALSE
+	if(QDELETED(src)) return FALSE
 
-/*
-/obj/item/quest_token/antag_find
-	name = "insight sigil"
-	desc = "Gather forbidden knowledge from the enemy."
-	icon_state = "questflaw"
-	var/list/allowed_tiers = list()
+	if(!_check_distance(user, H))
+		return FALSE
 
-/obj/item/quest_token/antag_find/attack(target, user)
-	if(!istype(target, /mob/living/carbon/human)) return ..()
-	if(!_ensure_attacker(user)) return
+	if(_has_quest_target_mark(H))
+		to_chat(user, span_warning("This target is already marked by a previous quest."))
+		return FALSE
 
-	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user)) return
+	if(H == user)
+		_apply_parish_boon(H)
+		_payout(reward_amount, user)
+		qdel(src)
+		return TRUE
 
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
-		return
+	if(_quest_user_in_combat_mode(user))
+		user.visible_message(
+			span_warning("[user] forces [src] upon [H]."),
+			span_warning("I force [src] upon [H].")
+		)
+		_apply_parish_scorn(H)
+		_payout(reward_amount, user)
+		qdel(src)
+		return TRUE
 
-	if(!islist(allowed_tiers) || !allowed_tiers.len)
-		to_chat(user, span_warning("This sigil is misconfigured."))
-		return
+	var/answer = alert(H, "[user] offers [src.name]. Accept it?", src.name, "Accept", "Refuse")
+	if(QDELETED(src)) return FALSE
 
-	if(!do_after(user, 15 SECONDS, H)) return
+	if(answer != "Accept")
+		to_chat(user, span_warning("[H] refuses."))
+		to_chat(H, span_notice("You refuse [src.name]."))
+		return FALSE
 
-	var/tier = _rt_antag_tier(H)
+	if(!_check_distance(user, H))
+		return FALSE
+
+	if(_has_quest_target_mark(H))
+		to_chat(user, span_warning("This target is already marked by a previous quest."))
+		return FALSE
+
 	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-
-	if(tier && (tier in allowed_tiers))
-		to_chat(user, span_notice("Hidden malice is revealed. You have completed the research."))
-		_payout(reward_amount)
-	else
-		to_chat(user, span_notice("No forbidden taint of that caliber is found. The sigil is spent."))
-
+	_payout(reward_amount, user)
 	qdel(src)
-*/
+	return TRUE
 
-// 2) Find Expertise
+// ---------------------------------------------------------------------
+// QUEST TOKENS
+// ---------------------------------------------------------------------
+
 /obj/item/quest_token/skill_bless
 	name = "mark of craft"
-	desc = "Get an opinion of an expert of specified skills."
+	desc = "Find a target who is expert in one of the listed skills. Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questflaw"
 	var/list/required_skills = list()
 
@@ -578,14 +597,11 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!_ensure_attacker(user)) return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user)) return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
-		return
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U)) return
 
 	if(!islist(required_skills) || !required_skills.len)
-		to_chat(user, span_warning("This token is misconfigured. (no skills set)"))
+		to_chat(U, span_warning("This token is misconfigured. (no skills set)"))
 		return
 
 	var/is_ok = FALSE
@@ -595,21 +611,25 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 			break
 
 	if(!is_ok)
-		to_chat(user, span_warning("They are not an EXPERT of the required skills."))
+		to_chat(U, span_warning("They are not an EXPERT of the required skills."))
 		return
 
-	if(!do_after(user, 15 SECONDS, H)) return
+	in_use = TRUE
+	if(!do_after(U, 15 SECONDS, H))
+		in_use = FALSE
+		return
 
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
-	qdel(src)
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
 
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+	return
 
-// 3) Blood Research
 /obj/item/quest_token/blood_draw
 	name = "sanctified lancet"
-	desc = "Draw blood from certain bloodlines."
+	desc = "Use on a target of one of the listed bloodlines. Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questblood"
 	var/list/required_race_keys = list()
 
@@ -618,14 +638,11 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!_ensure_attacker(user)) return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user)) return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
-		return
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U)) return
 
 	if(!islist(required_race_keys) || !required_race_keys.len)
-		to_chat(user, span_warning("This token is misconfigured. (no race keys set)"))
+		to_chat(U, span_warning("This token is misconfigured. (no race keys set)"))
 		return
 
 	var/matchrace = FALSE
@@ -635,21 +652,25 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 			break
 
 	if(!matchrace)
-		to_chat(user, span_warning("They are not of the required bloodline(s)."))
+		to_chat(U, span_warning("They are not of the required bloodline(s)."))
 		return
 
-	if(!do_after(user, 15 SECONDS, H)) return
+	in_use = TRUE
+	if(!do_after(U, 15 SECONDS, H))
+		in_use = FALSE
+		return
 
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
-	qdel(src)
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
 
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+	return
 
-// 4) Tithe
 /obj/item/quest_token/coin_chest
 	name = "tithe chest"
-	desc = "Feed it with mammon. When it is satisfied, it vanishes."
+	desc = "Feed it with mammon. It is consumed only when the tithe is completed."
 	icon_state = "questbox"
 	var/sum = 0
 	var/required_sum = 250
@@ -657,8 +678,10 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 /obj/item/quest_token/coin_chest/attackby(I, user, params)
 	if(!I) return
 	if(!_ensure_attacker(user)) return
-	if(_has_quest_lock(user))
-		to_chat(user, span_warning("You are under the Edict and cannot perform another routine."))
+	var/mob/living/carbon/human/U = user
+
+	if(_has_quest_target_mark(U))
+		to_chat(U, span_warning("You are already marked by a previous quest."))
 		return
 
 	if(istype(I, /obj/item/roguecoin/aalloy)) return
@@ -669,22 +692,19 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		sum += C.get_real_price()
 		qdel(C)
 
-		to_chat(user, span_notice("Deposited. Current tithe: [sum]."))
+		to_chat(U, span_notice("Deposited. Current tithe: [sum]."))
 
 		if(sum >= required_sum)
-			to_chat(user, span_notice("The chest accepts the tithe."))
-			_payout(reward_amount)
+			to_chat(U, span_notice("The chest accepts the tithe."))
+			_payout(reward_amount, U)
 			qdel(src)
 		return
 
 	..()
 
-
-// 5) Reliquary
-
 /obj/item/quest_token/reliquary
 	name = "sealed reliquary"
-	desc = "An ancient box sealed by divine sigils."
+	desc = "Solve the code. It does not expire."
 	icon_state = "questbox"
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -762,24 +782,26 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!_ensure_attacker(usr)) return
 	if(!_ensure_ui_access(usr)) return
 
-	if(_has_quest_lock(usr))
-		to_chat(usr, span_warning("You are under the Edict and cannot perform another routine."))
+	var/mob/living/carbon/human/U = usr
+
+	if(_has_quest_target_mark(U))
+		to_chat(U, span_warning("You are already marked by a previous quest."))
 		return
 
 	if(href_list["trycode"])
 		if(world.time < next_attempt_ds)
-			attack_hand(usr)
+			attack_hand(U)
 			return
 
-		var/guess = input(usr, "Enter 4 digits (0-9).", "Reliquary") as null|text
+		var/guess = input(U, "Enter 4 digits (0-9).", "Reliquary") as null|text
 		if(isnull(guess))
-			attack_hand(usr)
+			attack_hand(U)
 			return
 
 		guess = copytext(guess, 1, 5)
 		if(!_is_digit_string(guess) || length(guess) != 4)
-			to_chat(usr, span_warning("Needs exactly four digits 0-9."))
-			attack_hand(usr)
+			to_chat(U, span_warning("Needs exactly four digits 0-9."))
+			attack_hand(U)
 			return
 
 		var/correct_pos = 0
@@ -798,21 +820,19 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		next_attempt_ds = world.time + (20 SECONDS)
 
 		if(guess == code)
-			to_chat(usr, span_notice("The reliquary opens."))
-			_payout(reward_amount)
+			to_chat(U, span_notice("The reliquary opens."))
+			_payout(reward_amount, U)
 			qdel(src)
 			return
 		else
-			to_chat(usr, "<span class='notice'>Feedback - <span style='color:#2ecc71'>green</span>: [correct_pos], <span style='color:#f1c40f'>yellow</span>: [correct_digit]</span>")
+			to_chat(U, "<span class='notice'>Feedback - <span style='color:#2ecc71'>green</span>: [correct_pos], <span style='color:#f1c40f'>yellow</span>: [correct_digit]</span>")
 
-		attack_hand(usr)
+		attack_hand(U)
 		return
 
-
-// 6) Deliver Ration
 /obj/item/quest_token/ration_delivery
 	name = "charity ration"
-	desc = "Deliver food and care to the designated professions."
+	desc = "Give this to a target of one of the listed professions. Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questration"
 	var/list/required_job_types = list()
 
@@ -821,40 +841,39 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!_ensure_attacker(user)) return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user)) return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
-		return
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U)) return
 
 	if(!islist(required_job_types) || !required_job_types.len)
-		to_chat(user, span_warning("This ration is misconfigured. (no job list set)"))
+		to_chat(U, span_warning("This ration is misconfigured. (no job list set)"))
 		return
 
 	if(!_mob_matches_any_job(H, required_job_types))
-		to_chat(user, span_warning("They are not in any of the required professions."))
+		to_chat(U, span_warning("They are not in any of the required professions."))
 		return
 
-	if(!do_after(user, 15 SECONDS, H)) return
+	in_use = TRUE
+	if(!do_after(U, 15 SECONDS, H))
+		in_use = FALSE
+		return
 
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
+
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+		return
 
 	var/obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice/B = new /obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice(get_turf(H))
-	if(istype(H, /mob/living/carbon/human))
-		if(hascall(H, "put_in_hands"))
-			var/success = call(H, "put_in_hands")(B)
-			if(!success)
-				B.forceMove(get_turf(H))
-		else
+	if(hascall(H, "put_in_hands"))
+		var/success = call(H, "put_in_hands")(B)
+		if(!success)
 			B.forceMove(get_turf(H))
 	else
 		B.forceMove(get_turf(H))
-	qdel(src)
+	return
 
-
-// 7) Offering of Supplies
 /obj/item/quest_token/donation_box
 	name = "offering coffer"
 	desc = "Accepts one designated offering."
@@ -866,28 +885,26 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(collected || !I) return
 	if(!_ensure_attacker(user)) return
 
-	if(_has_quest_lock(user))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run"))
+	var/mob/living/carbon/human/U = user
+	if(_has_quest_target_mark(U))
+		to_chat(U, span_warning("You are already marked by a previous quest."))
 		return
 
 	for(var/T in need_types)
 		if(istype(I, T))
 			qdel(I)
 			collected = TRUE
-			to_chat(user, span_notice("The offering is accepted."))
-			_payout(reward_amount)
+			to_chat(U, span_notice("The offering is accepted."))
+			_payout(reward_amount, U)
 			qdel(src)
 			return
 
-	to_chat(user, span_warning("This is not an acceptable offering."))
-
-// 8) Minor Sermon
+	to_chat(U, span_warning("This is not an acceptable offering."))
 
 /obj/item/quest_token/sermon_minor
 	name = "sermon token"
-	desc = "Deliver a Minor Sermon to a follower of a specific patron."
+	desc = "Use on a follower of the listed patron(s). Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questflaw"
-
 	var/list/required_patron_names = list()
 
 /obj/item/quest_token/sermon_minor/Initialize()
@@ -908,46 +925,45 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user))
-		return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U))
 		return
 
 	if(!islist(required_patron_names) || !required_patron_names.len)
-		to_chat(user, span_warning("This token is misconfigured. (no patron list set)"))
+		to_chat(U, span_warning("This token is misconfigured. (no patron list set)"))
 		return
 
 	if(!_patron_matches_any(H, required_patron_names))
-		to_chat(user, span_warning("They do not follow any required patron."))
+		to_chat(U, span_warning("They do not follow any required patron."))
 		return
 
-	user.visible_message(
-		span_notice("[user] begins a brief sermon to [H]."),
+	U.visible_message(
+		span_notice("[U] begins a brief sermon to [H]."),
 		span_notice("I begin a brief sermon to [H].")
 	)
 
-	if(!do_after(user, 15 SECONDS, target = H))
+	in_use = TRUE
+	if(!do_after(U, 15 SECONDS, target = H))
+		in_use = FALSE
 		return
 
-	user.visible_message(
-		span_notice("[user] finishes the sermon for [H]."),
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
+
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+		return
+
+	U.visible_message(
+		span_notice("[U] finishes the sermon for [H]."),
 		span_notice("I finish the sermon for [H].")
 	)
-
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
-	qdel(src)
 	return TRUE
-
-
-// 9) Witness the Sermon (replaced with find a buff)
 
 /obj/item/quest_token/sermon_witness
 	name = "pharmacology probe"
-	desc = "Record the reaction: the target must bear an allowed effect."
+	desc = "Use on a target bearing one of the listed effects. Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questflaw"
 	var/list/required_effect_types = list()
 
@@ -966,15 +982,12 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user))
-		return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U))
 		return
 
 	if(!islist(required_effect_types) || !required_effect_types.len)
-		to_chat(user, span_warning("This token is misconfigured. (no effect list set)"))
+		to_chat(U, span_warning("This token is misconfigured. (no effect list set)"))
 		return
 
 	var/matched = FALSE
@@ -985,22 +998,25 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 				break
 
 	if(!matched)
-		to_chat(user, span_warning("They do not bear any of the required effects."))
+		to_chat(U, span_warning("They do not bear any of the required effects."))
 		return
 
-	if(!do_after(user, 10 SECONDS, H))
+	in_use = TRUE
+	if(!do_after(U, 10 SECONDS, H))
+		in_use = FALSE
 		return
 
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
-	qdel(src)
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
 
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+	return
 
-// 10) Researchment of Addiction
 /obj/item/quest_token/flaw_aid
 	name = "mercy charm"
-	desc = "Soothe a player bearing a listed flaw."
+	desc = "Use on a target bearing one of the listed flaws. Peaceful use gives Boon, combat-mode use gives Scorn."
 	icon_state = "questflaw"
 	var/list/required_flaw_types = list()
 
@@ -1009,14 +1025,11 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	if(!_ensure_attacker(user)) return
 
 	var/mob/living/carbon/human/H = target
-	if(!_ensure_target_player(H, user)) return
-
-	if(_has_quest_lock(H))
-		to_chat(user, span_warning("They’ve already answered the call - stand down and let the clock run."))
-		return
+	var/mob/living/carbon/human/U = user
+	if(!_ensure_target_player(H, U)) return
 
 	if(!islist(required_flaw_types) || !required_flaw_types.len)
-		to_chat(user, span_warning("This charm is misconfigured. (no flaw list set)"))
+		to_chat(U, span_warning("This charm is misconfigured. (no flaw list set)"))
 		return
 
 	var/matched = FALSE
@@ -1026,16 +1039,21 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 			break
 
 	if(!matched)
-		to_chat(user, span_warning("Target does not bear any of the required flaws."))
+		to_chat(U, span_warning("Target does not bear any of the required flaws."))
 		return
 
-	if(!do_after(user, 15 SECONDS, H)) return
+	in_use = TRUE
+	if(!do_after(U, 15 SECONDS, H))
+		in_use = FALSE
+		return
 
-	_apply_parish_boon(H)
-	_apply_quest_lock(H)
-	_payout(reward_amount)
-	qdel(src)
+	if(!_check_distance(U, H))
+		in_use = FALSE
+		return
 
+	if(!_complete_target_quest(H, U))
+		in_use = FALSE
+	return
 
 // ---------------------------------------------------------------------
 // quest fliff
@@ -1056,9 +1074,24 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	var/list/archetypes = list()
 
 	var/list/skill_cands = list()
+	var/list/blocked_skills = list(
+		/datum/skill/combat/staves,
+		/datum/skill/magic/blood
+	)
+
 	for(var/t in typesof(/datum/skill))
-		if(t != /datum/skill)
+		if(t == /datum/skill)
+			continue
+		if(!_is_leaf_type(t))
+			continue
+		if(t in blocked_skills)
+			continue
+
+		var/datum/skill/SK = new t
+		if(SK && istext(SK.name) && length(SK.name))
 			skill_cands += t
+		if(SK)
+			qdel(SK)
 
 	var/list/race_keys_master = list(
 		"northern_human","dwarf","dark_elf","wood_elf","half_elf","half_orc",
@@ -1086,7 +1119,6 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 		candidate_types_master = list(/obj/item/ingot/iron)
 
 	var/list/patron_pool = _rt_patron_name_pool()
-
 	var/list/job_pool = _rt_all_job_types_master()
 
 	var/list/flaw_cands = list()
@@ -1110,7 +1142,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn4 in diff_tithe)
 		var/list/D4 = diff_tithe[dn4]
 		var/need_sum = D4["required_sum"]
-		var/rew4     = D4["reward"]
+		var/rew4 = D4["reward"]
 
 		tithe_diffs[dn4] = list(
 			"diff"       = dn4,
@@ -1132,7 +1164,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn2 in diff_generic)
 		var/list/D2 = diff_generic[dn2]
 		var/ccount2 = D2["count"]
-		var/rew2    = D2["reward"]
+		var/rew2 = D2["reward"]
 
 		var/list/picked_skills = _rt_pick_unique(skill_cands, ccount2)
 		if(!picked_skills.len) continue
@@ -1161,7 +1193,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn3 in diff_generic)
 		var/list/D3 = diff_generic[dn3]
 		var/ccount3 = D3["count"]
-		var/rew3    = D3["reward"]
+		var/rew3 = D3["reward"]
 
 		var/list/picked_races = _rt_pick_unique(race_keys_master, ccount3)
 		if(!picked_races.len) continue
@@ -1193,7 +1225,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn6 in diff_generic)
 		var/list/D6 = diff_generic[dn6]
 		var/ccount6 = D6["count"]
-		var/rew6    = D6["reward"]
+		var/rew6 = D6["reward"]
 
 		var/list/picked_jobs = _rt_pick_unique(job_pool, ccount6)
 		if(!picked_jobs.len) continue
@@ -1225,7 +1257,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn7 in diff_generic)
 		var/list/D7 = diff_generic[dn7]
 		var/ccount7 = D7["count"]
-		var/rew7    = D7["reward"]
+		var/rew7 = D7["reward"]
 
 		var/list/picked_types = _rt_pick_unique(candidate_types_master, ccount7)
 		if(!picked_types.len) continue
@@ -1256,7 +1288,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn8 in diff_generic)
 		var/list/D8 = diff_generic[dn8]
 		var/ccount8 = D8["count"]
-		var/rew8    = D8["reward"]
+		var/rew8 = D8["reward"]
 
 		var/list/picked_patrons = _rt_pick_unique(patron_pool, ccount8)
 		if(!picked_patrons.len) continue
@@ -1284,7 +1316,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn5 in diff_generic)
 		var/list/D5 = diff_generic[dn5]
 		var/ccount5 = D5["count"]
-		var/rew5    = D5["reward"]
+		var/rew5 = D5["reward"]
 
 		var/list/picked_patrons2 = _rt_pick_unique(patron_pool, ccount5)
 		if(!picked_patrons2.len) continue
@@ -1311,13 +1343,13 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	var/list/witness_diffs = list()
 	for(var/dn9 in diff_generic)
 		var/list/D9 = diff_generic[dn9]
-		var/rew9    = D9["reward"]
+		var/rew9 = D9["reward"]
 
 		var/cn9 = 1
 		if("count" in D9 && isnum(D9["count"]))
 			cn9 = D9["count"]
 
-		var/list/pool   = (islist(Q_WITNESS_EFFECTS) && Q_WITNESS_EFFECTS.len) ? Q_WITNESS_EFFECTS : list(/datum/status_effect/buff/sermon)
+		var/list/pool = (islist(Q_WITNESS_EFFECTS) && Q_WITNESS_EFFECTS.len) ? Q_WITNESS_EFFECTS : list(/datum/status_effect/buff/sermon)
 		var/list/picked = _rt_pick_unique(pool, max(1, cn9))
 
 		var/list/names = list()
@@ -1345,7 +1377,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 	for(var/dn10 in diff_generic)
 		var/list/D10 = diff_generic[dn10]
 		var/ccount10 = D10["count"]
-		var/rew10    = D10["reward"]
+		var/rew10 = D10["reward"]
 
 		var/list/picked_flaws = _rt_pick_unique(flaw_cands, ccount10)
 		if(!picked_flaws.len) continue
@@ -1419,9 +1451,7 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 
 	return final_list
 
-
-
-//BUFF
+//BUFFS
 
 /datum/status_effect/buff/parish_boon
 	id = "parish_boon"
@@ -1431,8 +1461,19 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 
 /atom/movable/screen/alert/status_effect/buff/parish_boon
 	name = "Boon of the Parish"
-	desc = "You lent partial aid to the local church and bear a modest share of its blessing."
+	desc = "You accepted a quest willingly and bear a modest blessing."
 	icon_state = "buff"
+
+/datum/status_effect/debuff/parish_scorn
+	id = "parish_scorn"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/parish_scorn
+	effectedstats = list("perception" = -1, "intelligence" = -1)
+	duration = 20 MINUTES
+
+/atom/movable/screen/alert/status_effect/debuff/parish_scorn
+	name = "Scorn of the Parish"
+	desc = "A quest was forced upon you."
+	icon_state = "debuff"
 
 /datum/status_effect/debuff/quest_lock
 	id = "quest_lock"
@@ -1441,5 +1482,5 @@ var/global/list/Q_WITNESS_EFFECTS = list(
 
 /atom/movable/screen/alert/status_effect/debuff/quest_lock
 	name = "Edict of the Ten"
-	desc = "A sliver of sacred favor clings to you. Followers of the Ten will not enlist your aid in their routine."
+	desc = "A legacy status effect kept for compatibility."
 	icon_state = "debuff"
