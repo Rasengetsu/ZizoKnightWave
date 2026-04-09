@@ -361,11 +361,11 @@
 	strip_delay = 6 SECONDS
 	smelt_bar_num = 3
 
-/obj/item/clothing/suit/roguetown/armor/heartfelt/lord
+/obj/item/clothing/suit/roguetown/armor/heartfelt
 	slot_flags = ITEM_SLOT_ARMOR
 	name = "coat of armor"
 	desc = "A lordly coat of armor."
-	body_parts_covered = CHEST|GROIN|VITALS|LEGS|ARMS
+	body_parts_covered = COVERAGE_FULL
 	icon_state = "heartfelt"
 	item_state = "heartfelt"
 	armor = ARMOR_PLATE
@@ -380,22 +380,8 @@
 	smelt_bar_num = 4
 
 /obj/item/clothing/suit/roguetown/armor/heartfelt/hand
-	slot_flags = ITEM_SLOT_ARMOR
-	name = "coat of armor"
-	desc = "A lordly coat of armor."
-	body_parts_covered = COVERAGE_FULL
 	icon_state = "heartfelt_hand"
 	item_state = "heartfelt_hand"
-	armor = ARMOR_PLATE
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
-	allowed_sex = list(MALE, FEMALE)
-	nodismemsleeves = TRUE
-	blocking_behavior = null
-	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
-	anvilrepair = /datum/skill/craft/armorsmithing
-	smeltresult = /obj/item/ingot/steel
-	armor_class = ARMOR_CLASS_HEAVY
-	smelt_bar_num = 4
 
 /obj/item/clothing/suit/roguetown/armor/plate/otavan
 	name = "otavan half-plate"
@@ -654,10 +640,12 @@
 	icon_state = "citywatch"
 	item_state = "citywatch"
 	blocksound = PLATEHIT
-	body_parts_covered = CHEST|GROIN|VITALS
-	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
+	body_parts_covered = CHEST|GROIN|VITALS|ARMS
+	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE+50//need to make it cover arms so that it displays the sprite properly. Still, giving it atypically good integrity
 	armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 2
 	sewrepair = FALSE
 	allowed_sex = list(MALE, FEMALE)
 	equip_delay_self = 4 SECONDS
+	sleevetype = null
+	sleeved = null

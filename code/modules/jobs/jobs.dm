@@ -93,6 +93,8 @@ GLOBAL_LIST_INIT(garrison_positions, list(
 	"Squire",
 	"Vanguard",
 	"Dungeoneer",
+	"Master Warden",
+	"Watch Captain",
 ))
 
 GLOBAL_LIST_INIT(church_positions, list(
@@ -160,6 +162,7 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Court Agent",
 	"Bandit",
 	"Wretch",
+	"Gnoll",
 ))
 
 GLOBAL_LIST_INIT(roguewar_positions, list(
