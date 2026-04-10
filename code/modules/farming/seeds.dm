@@ -397,3 +397,38 @@
 	new flower_sprout_type(T)
 	to_chat(user, span_notice("I plant the flower seeds."))
 	qdel(src)
+
+// -- Mushroom Fae Circle Spores ---------------------------
+// Can only be planted in BLESSED soil. Seeds a mushroom sprout that blooms
+// into a full fae teleport circle after 5 minutes of growing.
+// Obtained as a reward from Sanctified Tree category 3 ritual.
+
+/obj/item/seeds/mushroom_fae
+	name = "fae mushroom spore"
+	desc = "A cluster of tiny pale spores that hum with strange, wild energy. They can only take root in blessed soil."
+	icon_state = "seed"
+	color = "#FFFFFF"
+	seed_identity = "mushroom fae spores"
+
+/obj/item/seeds/mushroom_fae/attack_turf(turf/T, mob/living/user)
+	var/obj/structure/soil/soil = locate(/obj/structure/soil) in T
+	if(!soil)
+		to_chat(user, span_warning("I need to plant these in a prepared soil plot."))
+		return
+	if(soil.blessed_time <= 0)
+		to_chat(user, span_warning("The soil must be blessed for these spores to take root."))
+		return
+	if(locate(/obj/structure/mushroom_sprout) in T || locate(/obj/structure/mushroom_circle) in T)
+		to_chat(user, span_warning("Something is already growing here."))
+		return
+	to_chat(user, span_notice("I carefully press the spores into the blessed soil..."))
+	if(!do_after(user, 5 SECONDS, target = src))
+		return
+	if(QDELETED(soil) || soil.blessed_time <= 0)
+		to_chat(user, span_warning("The soil's blessing faded before I could finish planting."))
+		return
+	if(locate(/obj/structure/mushroom_sprout) in T || locate(/obj/structure/mushroom_circle) in T)
+		return
+	new /obj/structure/mushroom_sprout(T)
+	to_chat(user, span_notice("I plant the fae mushroom spores."))
+	qdel(src)
