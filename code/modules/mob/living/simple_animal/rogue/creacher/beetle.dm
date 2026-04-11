@@ -41,9 +41,9 @@
 	retreat_distance = 3
 	minimum_distance = 0
 	milkies = FALSE
-	STASPD = 10 // slow but steady
-	STACON = 15 // very hardy
-	STASTR = 14 // strong
+	STASPD = 10
+	STACON = 15
+	STASTR = 14
 	STAWIL = 8
 	pixel_x = -8
 	pixel_y = 0
@@ -51,18 +51,14 @@
 	buckle_lying = 0
 	can_saddle = TRUE
 	max_buckled_mobs = 1
-	aggressive = FALSE // peaceful unless provoked
+	aggressive = FALSE
 	remains_type = /obj/effect/decal/remains/beetle
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_LARGE
 	var/playing_dead = FALSE
 	var/play_dead_threshold = 0.3 // Think that pretty clear waht it does. Below 30% play dead. 
 	var/chitin_timer = 0 // world.time when chitin can next be shaved
-	var/chitin_regrow_time = 5 MINUTES // time between chitin harvests
-
-/mob/living/simple_animal/hostile/retaliate/rogue/beetle/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_CRITICAL_RESISTANCE, TRAIT_GENERIC) // Unsure about this.
+	var/chitin_regrow_time = 5 MINUTES
 
 /mob/living/simple_animal/hostile/retaliate/rogue/beetle/update_icon()
 	cut_overlays()
@@ -99,31 +95,6 @@
 			return TRUE
 	return ..()
 
-/mob/living/simple_animal/hostile/retaliate/rogue/beetle/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	. = ..(.)
-	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		if(health <= round(maxHealth * play_dead_threshold) && !playing_dead)
-			play_dead()
-
-/mob/living/simple_animal/hostile/retaliate/rogue/beetle/proc/play_dead()
-	if(playing_dead || stat == DEAD)
-		return
-	playing_dead = TRUE
-	visible_message(span_warning("[src] curls up and stops moving!"))
-	fakedeath("beetle_defense")
-	addtimer(CALLBACK(src, PROC_REF(wake_up)), rand(10 SECONDS, 20 SECONDS))
-
-/mob/living/simple_animal/hostile/retaliate/rogue/beetle/proc/wake_up()
-	if(!playing_dead || stat == DEAD)
-		return
-	playing_dead = FALSE
-	cure_fakedeath("beetle_defense")
-	if(health > round(maxHealth * 0.5))
-		visible_message(span_notice("[src] uncurls and starts moving again."))
-	else
-		// Still too hurt, play dead again
-		addtimer(CALLBACK(src, PROC_REF(wake_up)), rand(10 SECONDS, 15 SECONDS))
-
 /mob/living/simple_animal/hostile/retaliate/rogue/beetle/get_sound(input)
 	switch(input)
 		if("aggro")
@@ -155,7 +126,7 @@
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/beetle
 	name = "beetle meat"
 	desc = "Rich, protein-dense meat from a giant beetle. Considered a delicacy in some underground settlements."
-	icon_state = "meatcut"
+	icon_state = "spidermeat"
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/beetle/cooked
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	slices_num = 2
@@ -163,7 +134,7 @@
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/beetle/cooked
 	name = "cooked beetle meat"
 	desc = "Cooked beetle meat has a nutty, earthy flavor."
-	icon_state = "meatcutcooked"
+	icon_state = "spidermeat"
 	cooked_type = null
 	slices_num = 0
 	slice_path = null

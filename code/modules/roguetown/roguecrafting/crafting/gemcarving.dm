@@ -1272,9 +1272,6 @@
 
 //.....................Chitin......................//
 
-/datum/crafting_recipe/roguetown/gemcarving/chitin
-	name = "chitin base recipe"
-	abstract_type = /datum/crafting_recipe/roguetown/gemcarving/chitin
 
 /datum/crafting_recipe/roguetown/gemcarving/chitin/rawchitin
 	name = "carved chitin (x2)"
