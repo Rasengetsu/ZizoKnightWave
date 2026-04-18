@@ -342,3 +342,13 @@
 		/obj/item/roguegem/blood_diamond = 2,
 		)
 	subtype_reqs = TRUE
+
+/datum/crafting_recipe/roguetown/alchemy/Stick2seed
+	name = "pinecone"
+	result = list(/obj/item/reagent_containers/food/snacks/grown/pinecone)
+	reqs = list(
+		/obj/item/natural/fibers = 2,
+		/obj/item/grown/log/tree/stick = 2,
+	)
+	craftdiff = 2
+	verbage_simple = "transmute"

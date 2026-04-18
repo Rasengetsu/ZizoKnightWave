@@ -653,3 +653,10 @@
 	slices_num = 1
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/eggplantcarved
 	slice_sound = TRUE
+
+/obj/item/reagent_containers/food/snacks/grown/pinecone
+	name = "pinecone"
+	desc = "rough and unassuming, yet full of lyfe"
+	icon_state = "pinecone"
+	seed = /obj/item/herbseed/pinecone_seeds
+	rotprocess = null
