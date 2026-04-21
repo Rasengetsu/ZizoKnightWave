@@ -1,0 +1,4 @@
+author: "IronDragoon"
+delete-after: True
+changes:
+  - rscadd: "Added new dog voice emotes (arf, awuff, dog complain, dog whine, dog growl)"

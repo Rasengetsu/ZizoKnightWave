@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/datum/virtue/virtuetwo = new /datum/virtue/none
 	var/selected_title = "None"
 	var/age = AGE_ADULT						//age of character
-	var/origin = "Default"
+	var/datum/origin/origin
 	var/accessory = "Nothing"
 	var/detail = "Nothing"
 	var/backpack = DBACKPACK				//backpack type
@@ -598,6 +598,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Taur Tertiary:</b> <span style='border: 1px solid #161616; background-color: #[taur_tertiary];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_tertiary;task=input'>Change</a><BR>"
 
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><BR>"
+			dat += "<b>Origin:</b> <a href='?_src_=prefs;preference=origin;task=input'>[origin ? origin.name : "None"]</a><BR>"
 
 //			dat += "<br><b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a>"
 //			if(randomise[RANDOM_BODY] || randomise[RANDOM_BODY_ANTAG]) //doesn't work unless random body
@@ -1459,6 +1460,15 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		var/client/C = usr.client
 		if(C)
 			C.clear_character_previews()
+	if(href_list["preference"] == "origin_select")
+		var/mob/user = usr
+		var/chosen_type = text2path(href_list["type"])
+		if(chosen_type && (chosen_type in GLOB.origins))
+			origin = GLOB.origins[chosen_type]
+			save_character()
+			user << browse(null, "window=origin_map")
+			ShowChoices(user)
+			return
 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
 	if(href_list["bancheck"])
@@ -1562,6 +1572,15 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 	else if(href_list["preference"] == "customizers")
 		ShowCustomizers(user)
+		return
+	else if(href_list["preference"] == "origin_select")
+		var/chosen_type = text2path(href_list["type"])
+		if(chosen_type && (chosen_type in GLOB.origins))
+			origin = GLOB.origins[chosen_type]
+			save_character()
+			user << browse(null, "window=origin_map")
+			ShowChoices(user)
+			return
 		return
 	else if(href_list["preference"] == "triumph_buy_menu")
 		SStriumphs.startup_triumphs_menu(user.client)
@@ -1840,6 +1859,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 					var/obj/item/bodypart/taur/tt = taur_type
 					to_chat(user, span_red("Your character now has [tt ? tt::name : "no taurtype."]."))
+
+				if("origin")
+					open_origin_map(user)
+					return
 
 				if("faith")
 					var/list/faiths_named = list()
@@ -2328,9 +2351,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						return
 					if(link == "")
 						link = null
-						ShowChoices(user)
-						return
-					if(link == " ")
+						var/choice = tgui_alert(user, "Do you really want to clear your OOC Extra Image/Video/Gif?", "Clear OOC Extra Image/Video/Gif", list("Yae", "Nae"))
+						if(choice == "Nae")
+							ShowChoices(user)
+							return
 						ooc_extra_img = null
 						ooc_extra_img_link = null
 						to_chat(user, "<span class='notice'>Successfully deleted OOC Extra Image.</span>")
@@ -2364,9 +2388,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						return
 					if(link == "")
 						link = null
-						ShowChoices(user)
-						return
-					if(link == " ")
+						var/choice = tgui_alert(user, "Do you really want to clear your NSFW OOC Extra Image/Video/Gif?", "Clear NSFW OOC Extra Image/Video/Gif", list("Yae", "Nae"))
+						if(choice == "Nae")
+							ShowChoices(user)
+							return
 						nsfw_ooc_extra_img = null
 						nsfw_ooc_extra_img_link = null
 						to_chat(user, "<span class='notice'>Successfully deleted NSFW OOC Extra Image.</span>")
@@ -3096,7 +3121,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.nickname = nickname
 
 	character.eye_color = eye_color
-	if(extra_language && extra_language != "None")
+	var/origin_lang = FALSE
+	if(origin && origin.origin_language)
+		origin_lang = TRUE
+	if(!origin_lang && extra_language && extra_language != "None")
 		character.grant_language(extra_language)
 	if(extra_language_1 && extra_language_1 != "None")
 		character.grant_language(extra_language_1)
@@ -3146,6 +3174,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.dna.real_name = character.real_name
 
 	character.headshot_link = headshot_link
+
+	character.origin = origin ? origin.name : "Unknown"
 
 	character.statpack = statpack
 

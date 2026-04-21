@@ -1472,7 +1472,7 @@
 "qg" = (
 /obj/structure/mineral_door/wood/deadbolt{
 	dir = 1;
-	name = "Castellan's Quarters"
+	name = "Guest Room"
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/inhumen/wretch/camp)
@@ -1697,6 +1697,11 @@
 /obj/structure/pillory{
 	lockid = "inhumen"
 	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/under/cave/inhumen/wretch/camp)
+"sL" = (
+/obj/structure/fluff/railing/border,
+/obj/structure/bondage/torture_table/lever,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave/inhumen/wretch/camp)
 "sM" = (
@@ -3399,6 +3404,7 @@
 /area/rogue/under/cave/inhumen/wretch/gnollcavern)
 "Lv" = (
 /obj/machinery/light/rogue/candle/red,
+/obj/structure/bondage/x_pillory,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/inhumen/wretch/camp)
 "Ly" = (
@@ -9897,7 +9903,7 @@ xk
 Ky
 xk
 xk
-HG
+sL
 YF
 LJ
 LJ

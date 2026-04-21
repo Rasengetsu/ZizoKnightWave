@@ -569,6 +569,9 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	droning_sound = 'sound/music/area/catacombs.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
+	// first_time_text = "THE CRYPT OF THE TEN"
+
+/area/rogue/indoors/town/church/basement/crypt
 	first_time_text = "THE CRYPT OF THE TEN"
 
 /area/rogue/indoors/town/fire_chamber
@@ -584,9 +587,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	name = "Warden Fort"
 	warden_area = TRUE
 	deathsight_message = "a moss covered stone redoubt, guarding against the wilds"
-
-/area/rogue/indoors/town/warehouse/can_craft_here()
-	return FALSE
 
 /area/rogue/indoors/inq
 	name = "The Inquisition"

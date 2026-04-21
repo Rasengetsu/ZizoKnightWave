@@ -776,6 +776,13 @@ GLOBAL_LIST_INIT(character_flaws, list(
 /datum/charflaw/marked_by_baotha/on_mob_creation(mob/user)
 
 	var/mutable_appearance/marking_overlay = mutable_appearance('icons/roguetown/misc/baotha_marking.dmi', "marking_[user.gender == "male" ? "m" : "f"]", -BODY_LAYER)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(isdwarf(H) || isgoblinp(H) || iskobold(H) || iscritter(H))
+			if(H.gender == MALE)
+				marking_overlay.pixel_y -= 5
+			else
+				marking_overlay.pixel_y -= 3
 	user.add_overlay(marking_overlay)
 
 	spawn(40)

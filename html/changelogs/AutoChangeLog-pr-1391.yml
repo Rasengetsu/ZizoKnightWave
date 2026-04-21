@@ -1,0 +1,5 @@
+author: "Rayforx"
+delete-after: True
+changes:
+  - bugfix: "Cold weather removes the ability to bleed."
+  - balance: "Makes extremely cold weather slow down bleeding by 50% instead of 100%."

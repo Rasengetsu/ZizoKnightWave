@@ -91,6 +91,9 @@
 	beltl = /obj/item/storage/keyring/archivist
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/mid
 	mask = /obj/item/clothing/mask/rogue/spectacles
+	if(SSmapping.config.map_name == "Desert Town")
+		head = /obj/item/clothing/head/roguetown/tagelmust
+		shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	id = /obj/item/scomstone/bad
 	backpack_contents = list(
 		/obj/item/recipe_book/alchemy,

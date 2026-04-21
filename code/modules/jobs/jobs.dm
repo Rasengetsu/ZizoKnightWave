@@ -71,11 +71,6 @@ GLOBAL_LIST_INIT(noble_positions, list(
 	"Steward",
 	"Clerk",
 	"Knight",
-	//Desert
-	// "Sultan",
-	// "Amir",
-	"Sheikh",
-	"Vizier",
 ))
 
 GLOBAL_LIST_INIT(courtier_positions, list(

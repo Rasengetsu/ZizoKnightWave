@@ -364,8 +364,6 @@
 	/datum/job/roguetown/steward,\
 	/datum/job/roguetown/dtprince,\
 	/datum/job/roguetown/cataphract,\
-	/datum/job/roguetown/vizier,\
-	/datum/job/roguetown/sheikh,\
 
 #define KING_QUEEN_ROLES \
 	/datum/job/roguetown/lady,\

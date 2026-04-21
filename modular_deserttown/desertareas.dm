@@ -5,8 +5,8 @@
 	name = "Inner Dunes"
 	icon_state = "desert"
 	soundenv = 19
-	ambientsounds = AMB_MOUNTAIN
-	ambientnight = AMB_MOUNTAIN
+	ambientsounds = AMB_TOWNDAY
+	ambientnight = AMB_TOWNNIGHT
 	spookysounds = SPOOKY_GEN
 	spookynight = SPOOKY_GEN
 	ambush_times = list("night")
@@ -37,8 +37,8 @@
 	name = "Deep Dunes"
 	icon_state = "desertdeep"
 	warden_area = TRUE
-	ambientsounds = AMB_MOUNTAIN
-	ambientnight = AMB_MOUNTAIN
+	ambientsounds = AMB_TOWNDAY
+	ambientnight = AMB_TOWNNIGHT
 	spookysounds = SPOOKY_GEN
 	spookynight = SPOOKY_GEN
 	first_time_text = "Deep Dunes"
@@ -73,7 +73,16 @@
 	ambush_mobs = null
 
 /area/rogue/outdoors/desertdeep/above
-	name = "Deepdesert Above"
+	name = "deep desert above"
+	ambientsounds = AMB_MOUNTAIN
+	ambientnight = AMB_MOUNTAIN
+	soundenv = 17
+	first_time_text = null
+	ambush_times = null
+	ambush_mobs = null
+
+/area/rogue/outdoors/desert/above
+	name = "desert above"
 	ambientsounds = AMB_MOUNTAIN
 	ambientnight = AMB_MOUNTAIN
 	soundenv = 17
@@ -413,3 +422,24 @@
 /area/rogue/indoors/town/desert/arenaview
 	name = "Grand Arena"
 	viewing_area = TRUE
+
+/area/rogue/indoors/town/church/cavebasement
+	icon_state = "church"
+	first_time_text = "THE CRYPT OF THE TEN"
+	ambientsounds = AMB_CAVEWATER
+	ambientnight = AMB_CAVEWATER
+	spookysounds = SPOOKY_CAVE
+	spookynight = SPOOKY_CAVE
+	droning_sound = 'sound/music/area/underdark2.ogg'
+
+/area/rogue/indoors/town/church/psy
+	name = "church"
+	icon_state = "church"
+	droning_sound = 'sound/music/area/church.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	holy_area = TRUE
+	droning_sound_dawn = 'sound/music/area/churchdawn.ogg'
+	converted_type = /area/rogue/outdoors/exposed/church
+	deathsight_message = "a hallowed place, sworn to the One"
+	first_time_text = "THE HOUSE OF THE ONE"

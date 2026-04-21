@@ -18,7 +18,7 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	armor_class = ARMOR_CLASS_LIGHT
-	cold_protection = CHEST
+	cold_protection = CHEST | GROIN
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/councillor
@@ -29,7 +29,7 @@
 	icon_state = "dgamb"
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
 	allowed_sex = list(MALE, FEMALE)
-	cold_protection = CHEST | ARM_RIGHT | ARM_LEFT
+	cold_protection = CHEST | GROIN | ARM_RIGHT | ARM_LEFT 
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
@@ -61,7 +61,7 @@
 	l_sleeve_status = SLEEVE_NORMAL
 	var/shiftable = TRUE
 	var/shifted = FALSE
-	cold_protection = CHEST | ARM_RIGHT | ARM_LEFT
+	cold_protection = CHEST | GROIN | ARM_RIGHT | ARM_LEFT
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 	
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/attack_right(mob/user)
@@ -280,7 +280,7 @@
 	shiftable = FALSE
 	cold_protection = null
 	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
-	heat_protection = CHEST | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
+	heat_protection = CHEST | GROIN | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hierophant
@@ -292,7 +292,7 @@
 	shiftable = FALSE
 	cold_protection = null
 	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
-	heat_protection = CHEST | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
+	heat_protection = CHEST | GROIN | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/pontifex
@@ -303,7 +303,7 @@
 	shiftable = FALSE
 	cold_protection = null
 	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
-	heat_protection = CHEST | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
+	heat_protection = CHEST | GROIN | ARM_RIGHT | ARM_LEFT | LEG_RIGHT | LEG_LEFT
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/inq

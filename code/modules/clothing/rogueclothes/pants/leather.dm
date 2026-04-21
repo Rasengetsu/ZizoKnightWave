@@ -37,6 +37,10 @@
 	desc = "Form-fitting legwear. Almost too form-fitting."
 	icon_state = "shadowpants"
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = GROIN | LEG_RIGHT | LEG_LEFT
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 
 /obj/item/clothing/under/roguetown/trou/beltpants
 	name = "belt-buckled trousers"
