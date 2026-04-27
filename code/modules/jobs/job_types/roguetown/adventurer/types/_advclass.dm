@@ -132,6 +132,12 @@
 	if(cmode_music)
 		H.cmode_music = cmode_music
 
+	//OV edit
+	if(isooze(H))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/ooze)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mirror_transform/instant)
+	//OV edit end
+
 /*
 	Whoa! we are checking requirements here!
 	On the datum! Wow!

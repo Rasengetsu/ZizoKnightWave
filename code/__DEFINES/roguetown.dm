@@ -61,6 +61,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/dwarf/gnome,\
 	/datum/species/harpy,\
 	/datum/species/arachnid,\
+	/datum/species/ooze\
 )
 
 #define RACES_RESPECTED \
@@ -88,12 +89,14 @@ Balloon Alert / Floating Text defines
 	/datum/species/anthromorphsmall,\
 	/datum/species/kobold,\
 	/datum/species/tieberian,\
+	/datum/species/ooze\
 
 #define RACES_SHUNNED \
 	/datum/species/dullahan,\
 	/datum/species/halforc,\
 	/datum/species/goblinp,\
 	/datum/species/harpy,\
+	/datum/species/ooze\
 
 #define RACES_DESPISED \
 	/datum/species/dullahan,\
@@ -165,6 +168,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/lamia,\
 	/datum/species/dwarf/gnome,\
 	/datum/species/arachnid,\
+	/datum/species/ooze\
 )
 // Non-dwarf non-kobold non-goblin mostly
 #define NON_DWARVEN_RACE_TYPES list(\
@@ -190,6 +194,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/dullahan,\
 	/datum/species/lamia,\
 	/datum/species/arachnid,\
+	/datum/species/ooze\
 )
 // Non-elf non-dwarf non-kobold non-goblin mostly
 #define HUMANLIKE_RACE_TYPES list(\
@@ -211,6 +216,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/dullahan,\
 	/datum/species/lamia,\
 	/datum/species/arachnid,\
+	/datum/species/ooze\
 )
 #define ALL_CLERIC_PATRONS list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/necra, /datum/patron/divine/pestra, /datum/patron/divine/ravox, /datum/patron/divine/malum, /datum/patron/divine/eora) // Currently unused.
 
