@@ -48,7 +48,7 @@
 	range = 3
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
-	spell_tier = 2
+	spell_tier = 1
 	invocation_type = "none"
 	sound = 'sound/misc/area.ogg' //This sound doesnt play for some reason. Fix me.
 	associated_skill = /datum/skill/magic/arcane
