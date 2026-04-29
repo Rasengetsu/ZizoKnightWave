@@ -33,7 +33,8 @@
 		TRAIT_MEDICINE_EXPERT,
 		TRAIT_DUALWIELDER,
 		TRAIT_VOTARY,
-		TRAIT_CONVICTION
+		TRAIT_CONVICTION,
+		TRAIT_HOLYWARRIOR,
 	)
 
 	//No undeath-adjacent virtues for a role that can sacrifice itself. The Ten like their sacrifices 'pure'.

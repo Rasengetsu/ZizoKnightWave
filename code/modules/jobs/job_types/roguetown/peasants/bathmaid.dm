@@ -141,7 +141,7 @@
 
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/massage)
-		var/weapons = list("Accordion","Bagpipe","Drum","Flute","Guitar","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
+		var/weapons = list("Accordion","Bagpipe", "Banjo","Drum","Flute","Guitar","Harmonica","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
 		var/weapon_choice = input(H, "Choose your instrument.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
@@ -149,12 +149,16 @@
 				backr = /obj/item/rogue/instrument/accord
 			if("Bagpipe")
 				backr = /obj/item/rogue/instrument/bagpipe
+			if("Banjo")
+				backr = /obj/item/rogue/instrument/banjo
 			if("Drum")
 				backr = /obj/item/rogue/instrument/drum
 			if("Flute")
 				backr = /obj/item/rogue/instrument/flute
 			if("Guitar")
 				backr = /obj/item/rogue/instrument/guitar
+			if("Harmonica")
+				backr = /obj/item/rogue/instrument/harmonica
 			if("Harp")
 				backr = /obj/item/rogue/instrument/harp
 			if("Hurdy-Gurdy")
@@ -289,7 +293,7 @@
 		shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced/short
 
 	if(H.mind)
-		var/weapons = list("Accordion","Bagpipe","Drum","Flute","Guitar","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
+		var/weapons = list("Accordion","Bagpipe", "Banjo","Drum","Flute","Guitar","Harmonica","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
 		var/weapon_choice = input(H, "Choose your instrument.", "TAKE UP ARMS") as anything in weapons
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/massage)
 		H.set_blindness(0)
@@ -298,12 +302,16 @@
 				backr = /obj/item/rogue/instrument/accord
 			if("Bagpipe")
 				backr = /obj/item/rogue/instrument/bagpipe
+			if("Banjo")
+				backr = /obj/item/rogue/instrument/banjo
 			if("Drum")
 				backr = /obj/item/rogue/instrument/drum
 			if("Flute")
 				backr = /obj/item/rogue/instrument/flute
 			if("Guitar")
 				backr = /obj/item/rogue/instrument/guitar
+			if("Harmonica")
+				backr = /obj/item/rogue/instrument/harmonica
 			if("Harp")
 				backr = /obj/item/rogue/instrument/harp
 			if("Hurdy-Gurdy")
