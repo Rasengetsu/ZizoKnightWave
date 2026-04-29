@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(mushroom_circles)
 
 /obj/structure/mushroom_circle/fey/attackby(obj/item/I, mob/living/user, params)
 	// Only block fey circle USE actions from low-skill users — attacking/chopping is always allowed.
-	var/is_fey_use = istype(I, /obj/item/natural/feather) || istype(I, /obj/item/clothing/neck/roguetown/psicross/dendor) || (istype(I, /obj/item/rogueweapon/huntingknife/scissors) && user.used_intent.type == /datum/intent/snip)
+	var/is_fey_use = istype(I, /obj/item/natural/feather) || istype(I, /obj/item/clothing/neck/roguetown/psicross/dendor) || ((istype(I, /obj/item/rogueweapon/huntingknife/scissors) || istype(I, /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr)) && user.used_intent.type == /datum/intent/snip)
 	if(is_fey_use && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.get_skill_level(/datum/skill/magic/druidic) < SKILL_LEVEL_EXPERT)
@@ -223,10 +223,10 @@ GLOBAL_LIST_EMPTY(mushroom_circles)
 			to_chat(user, span_notice("I rename [old_name] to [new_name]."))
 		return
 
-	// Scissors maintenance — requires snip intent so attacks don't accidentally maintain it
-	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors) && user.used_intent.type == /datum/intent/snip)
+	// Scissors/bauernwehr maintenance — requires snip intent so attacks don't accidentally maintain it
+	if((istype(I, /obj/item/rogueweapon/huntingknife/scissors) || istype(I, /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr)) && user.used_intent.type == /datum/intent/snip)
 		if(!active)
-			to_chat(user, span_warning("The circle has already faded — scissors can't restore it now."))
+			to_chat(user, span_warning("The circle has already faded — it can't be restored now."))
 			return
 		to_chat(user, span_notice("I carefully tend to [src]..."))
 		if(do_after(user, 3 SECONDS, target = src))

@@ -193,7 +193,7 @@
 			return
 
 	// Shearing at stage 3 — requires snip intent so the player opts in deliberately
-	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors) && user.used_intent.type == /datum/intent/snip && stage == BUSHSAP_STAGE_MATURE && !dead)
+	if((istype(I, /obj/item/rogueweapon/huntingknife/scissors) || istype(I, /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr)) && user.used_intent.type == /datum/intent/snip && stage == BUSHSAP_STAGE_MATURE && !dead)
 		to_chat(user, span_notice("I begin trimming [src]..."))
 		if(do_after(user, 3 SECONDS, target = src))
 			var/num_fibers = rand(1, 2)
