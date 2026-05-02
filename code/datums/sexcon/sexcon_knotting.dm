@@ -326,7 +326,12 @@
 /datum/sex_controller/proc/knot_remove(forceful_removal = FALSE, notify = TRUE, keep_top_status = FALSE, keep_btm_status = FALSE, mob/living/carbon/human/remover = null)
 	var/mob/living/carbon/human/top = knotted_owner
 	var/mob/living/carbon/human/btm = knotted_recipient
+	var/datum/sex_controller/top_sexcon = top?.sexcon
+	var/datum/sex_controller/btm_sexcon = btm?.sexcon
 	var/btm_removed = remover == btm && remover != top
+	if((ishuman(top) && !QDELETED(top) && !top_sexcon) || (ishuman(btm) && !QDELETED(btm) && !btm_sexcon))
+		knot_exit(keep_top_status, keep_btm_status)
+		return
 	if(ishuman(btm) && !QDELETED(btm) && ishuman(top) && !QDELETED(top))
 		if(forceful_removal)
 			var/damage = top.sexcon.knotted_part_partner&SEX_PART_JAWS ? 10 : 30 // base damage value
@@ -394,7 +399,7 @@
 /datum/sex_controller/proc/knot_exit(keep_top_status = FALSE, keep_btm_status = FALSE)
 	var/mob/living/carbon/human/top = knotted_owner
 	var/mob/living/carbon/human/btm = knotted_recipient
-	if(istype(top) && top.sexcon.knotted_status)
+	if(istype(top) && top?.sexcon?.knotted_status)
 		if(!keep_top_status) // only keep the status if we're reapplying the knot
 			top.remove_status_effect(/datum/status_effect/knotted)
 		UnregisterSignal(top.sexcon.user, COMSIG_MOVABLE_MOVED)
@@ -405,7 +410,7 @@
 		top.sexcon.knotted_part_partner = SEX_PART_NULL
 		top.sexcon.knotted_forced_by_bottom = FALSE
 		log_combat(top, top, "Stopped knot tugging")
-	if(istype(btm) && btm.sexcon.knotted_status)
+	if(istype(btm) && btm?.sexcon?.knotted_status)
 		if(!keep_btm_status) // only keep the status if we're reapplying the knot
 			btm.remove_status_effect(/datum/status_effect/knot_tied)
 			btm.reset_pull_offsets(btm, GRAB_AGGRESSIVE)
