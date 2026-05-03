@@ -1094,7 +1094,7 @@
 	sheathe_icon = "decsaber"
 	sellprice = 140
 
-/obj/item/rogueweapon/sword/saber/iron
+/obj/item/rogueweapon/sword/sabre/iron
 	name = "iron saber"
 	desc = "A Naledian sword mass produced for line infantry. Its fittings are simple, munitions grade, but the construction is sturdy and the blade as threatening \
 	as any."
