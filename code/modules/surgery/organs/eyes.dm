@@ -546,7 +546,7 @@
 /datum/status_effect/buff/t1eyes
 	id = "t1eyes"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/t1eyes
-	effectedstats = list(STATKEY_INT = 2, STATKEY_LUC = 2)
+	effectedstats = list(STATKEY_INT = 2, STATKEY_LCK = 2)
 
 /atom/movable/screen/alert/status_effect/buff/t1eyes
 	name = "Eyes of the Scholar"
