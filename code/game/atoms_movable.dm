@@ -143,6 +143,14 @@
 			return FALSE
 	return ..()
 
+/**
+* A wrapper for setDir that should only be able to fail by living mobs.
+*
+* Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
+*/
+/atom/movable/proc/keybind_face_direction(direction)
+	setDir(direction)
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE, obj/item/item_override)
 	testing("startpulling target: [AM]")
 	if(QDELETED(AM))
@@ -718,15 +726,16 @@
 		return TRUE
 	return ..()
 
-// called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
+/// Called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
 	return
 
-// called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+/// Called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item. 
+/// If the mob putting the atom in storage is known, it is passed on as M.
+/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S, mob/M)
 	return
 
-//called when a mob resists while inside a container that is itself inside something.
+/// Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
 	return
 
