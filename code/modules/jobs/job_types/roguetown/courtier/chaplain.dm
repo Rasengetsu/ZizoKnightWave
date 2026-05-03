@@ -65,7 +65,7 @@ Only when swords are drawn might your true loyalties be discovered."
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_CHAPLAIN)
 	subclass_stats = list(
-		STATKEY_INT = 3,//court knowledge
+		STATKEY_INT = 2,//court knowledge
 		STATKEY_WIL = 2,
 		STATKEY_PER = 2,//eye for intrigue
 		STATKEY_CON = -1,//scrawny pencil-pusher
@@ -186,7 +186,7 @@ Only when swords are drawn might your true loyalties be discovered."
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/divineblast)
 	// -- End of section for god specific bonuses --
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
-	C.grant_miracles(H, cleric_tier = CLERIC_T3, passive_gain = CLERIC_REGEN_MINOR, start_maxed = TRUE)	//Starts off maxed out.
+	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_MINOR, start_maxed = TRUE)	//Starts off maxed out.
 
 /datum/outfit/job/roguetown/chaplain/basic/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
