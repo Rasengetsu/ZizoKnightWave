@@ -388,10 +388,11 @@
 	if(user.get_skill_level(/datum/skill/labor/farming) < SKILL_LEVEL_JOURNEYMAN)
 		to_chat(user, span_warning("I don't have the farming knowledge to tend a bush sapling."))
 		return
+	var/obj/structure/soil/soil = locate(/obj/structure/soil) in T
 	if(locate(/obj/structure/bush_sapling) in T)
 		to_chat(user, span_warning("There's already a bush sapling growing here."))
 		return
-	if(!locate(/obj/structure/soil) in T && !istype(T, /turf/open/floor/rogue/dirt) && !istype(T, /turf/open/floor/rogue/grass))
+	if(!soil && !istype(T, /turf/open/floor/rogue/dirt) && !istype(T, /turf/open/floor/rogue/grass))
 		to_chat(user, span_warning("I need to plant this in soil, on dirt, or on grass."))
 		return
 	to_chat(user, span_notice("I begin mounding up earth for the bush seed..."))
@@ -401,10 +402,12 @@
 	// Re-check after delay
 	if(locate(/obj/structure/bush_sapling) in T)
 		return
-	if(!locate(/obj/structure/soil) in T)
-		if(!istype(T, /turf/open/floor/rogue/dirt) && !istype(T, /turf/open/floor/rogue/grass))
-			return
-		new /obj/structure/soil(T)
+	if(!soil)
+		soil = locate(/obj/structure/soil) in T
+		if(!soil)
+			if(!istype(T, /turf/open/floor/rogue/dirt) && !istype(T, /turf/open/floor/rogue/grass))
+				return
+			soil = new /obj/structure/soil(T)
 	new /obj/structure/bush_sapling(T)
 	to_chat(user, span_notice("I plant the bush seed and pat down the earth."))
 	qdel(src)

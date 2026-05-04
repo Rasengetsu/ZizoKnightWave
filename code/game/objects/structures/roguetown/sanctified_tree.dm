@@ -521,9 +521,9 @@
 				consume_offering(key, sack_item, user)
 				current++
 				tree_data.ritual_progress[key] = current
-				playsound(get_turf(src), 'sound/magic/churn.ogg', 40, FALSE)
 				any_taken = TRUE
 		if(any_taken)
+			playsound(get_turf(src), 'sound/magic/churn.ogg', 40, FALSE)
 			if(check_ritual_complete())
 				complete_ritual(user)
 			return TRUE
@@ -895,7 +895,7 @@
 /// Aura: wide green glow, periodic healing for Dendor followers.
 /obj/structure/flora/roguetree/wise/sanctified/proc/reward_cat5(mob/living/user)
 	tree_data.has_heal_aura = TRUE
-	set_light(5, 5, 5, l_color = "#44AA44")
+	set_light(10, 10, 10, l_color = "#44AA44")
 	add_filter("sanctified_outline", 2, list("type" = "outline", "color" = "#58C86A", "alpha" = 60, "size" = 1))
 	visible_message(span_green("A warm green aura blooms from [src.name]. The Treefather's life flows to those who revere him."))
 

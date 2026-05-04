@@ -47,7 +47,7 @@
 	var/dead_icon    = 'icons/roguetown/misc/crops.dmi'
 	var/dead_state   = "lemon3"
 	// pixel offsets applied when becoming a young tree
-	var/stage3_pixel_x = -16
+	var/stage3_pixel_x = -6
 	var/stage3_pixel_y = 0
 
 /obj/structure/tree_sapling/Initialize(mapload)

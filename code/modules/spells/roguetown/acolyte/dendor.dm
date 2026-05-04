@@ -1012,7 +1012,7 @@
 	action_icon_state = "blessing"
 	action_icon = 'icons/mob/actions/genericmiracles.dmi'
 	chargetime = 0 SECONDS
-	recharge_time = 30 SECONDS
+	recharge_time = 20 SECONDS
 	associated_skill = /datum/skill/magic/druidic
 	invocations = list("From the deep soil, a fragile life springs! Treefather, grant me your seed.")
 	invocation_type = "whisper"

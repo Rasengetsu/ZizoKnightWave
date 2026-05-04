@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(soil_list)
 			to_chat(user, span_warning("The soil is already wet!"))
 			return TRUE
 		var/obj/item/reagent_containers/container = attacking_item
-		var/reagent_units_needed = CEILING(target_water / 15, 1)
+		var/reagent_units_needed = CEILING(target_water / 6, 1)
 		var/clean_water = min(container.reagents.get_reagent_amount(/datum/reagent/water), reagent_units_needed)
 		var/holy_water = min(container.reagents.get_reagent_amount(/datum/reagent/water/holywater), max(reagent_units_needed - clean_water, 0))
 		var/blessed_water = min(container.reagents.get_reagent_amount(/datum/reagent/water/blessed), max(reagent_units_needed - clean_water - holy_water, 0))
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(soil_list)
 			container.reagents.remove_reagent(/datum/reagent/water/blessed, blessed_water)
 		if(gross_water > 0)
 			container.reagents.remove_reagent(/datum/reagent/water/gross, gross_water)
-		water_amount = min(target_water, total_units * 15)
+		water_amount = min(target_water, total_units * 6)
 	if(water_amount > 0)
 		var/list/wash = list('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg')
 		playsound(user, pick_n_take(wash), 100, FALSE)
@@ -643,7 +643,7 @@ GLOBAL_LIST_EMPTY(soil_list)
 /obj/structure/soil/proc/get_natural_growth_bonuses()
 	var/blessed_bonus = (blessed_time > 0) ? 0.20 : 0.0
 	var/living_light_bonus = 0.0
-	for(var/obj/structure/flora/roguetree/wise/sanctified/tree in range(5, src))
+	for(var/obj/structure/flora/roguetree/wise/sanctified/tree in range(10, src))
 		if(tree.tree_data?.has_heal_aura)
 			living_light_bonus = 0.10
 			break
@@ -793,7 +793,7 @@ GLOBAL_LIST_EMPTY(soil_list)
 		soil_decay_time = max(soil_decay_time - dt, 0)
 
 	adjust_water(-dt * SOIL_WATER_DECAY_RATE)
-	adjust_nutrition(-dt * SOIL_NUTRIMENT_DECAY_RATE)
+	adjust_nutrition(-dt * SOIL_NUTRIMENT_DECAY_RATE * (blessed_time > 0 ? 0.5 : 1))
 	if(fertilized_time > 0)
 		nutrition = 100
 	tilled_time = max(tilled_time - dt, 0)
