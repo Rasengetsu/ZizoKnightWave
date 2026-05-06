@@ -6,6 +6,8 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	converted_type = /area/rogue/outdoors/exposed/under/town
+	town_area = TRUE
+
 /area/rogue/outdoors/exposed/under/town
 	icon_state = "town"
 	droning_sound = 'sound/music/area/catacombs.ogg'
@@ -25,23 +27,25 @@
 	ambientrain = RAIN_SEWER
 	soundenv = 21
 	converted_type = /area/rogue/outdoors/exposed/under/sewer
+	deathsight_message = "beneath streets of stone, putrid and wet"
+
 /area/rogue/outdoors/exposed/under/sewer
 	icon_state = "sewer"
 	droning_sound = 'sound/music/area/sewers.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
 
-/area/rogue/under/town/caverogue
-	name = "miningcave (roguetown)"
-	icon_state = "caverogue"
-	ambientsounds = AMB_GENCAVE
-	ambientnight = AMB_GENCAVE
-	spookysounds = SPOOKY_CAVE
-	spookynight = SPOOKY_CAVE
-	droning_sound = 'sound/music/area/caves.ogg'
-	droning_sound_dusk = null
-	droning_sound_night = null
-	converted_type = /area/rogue/outdoors/exposed/under/caves
+// /area/rogue/under/town/caverogue
+// 	name = "miningcave (roguetown)"
+// 	icon_state = "caverogue"
+// 	ambientsounds = AMB_GENCAVE
+// 	ambientnight = AMB_GENCAVE
+// 	spookysounds = SPOOKY_CAVE
+// 	spookynight = SPOOKY_CAVE
+// 	droning_sound = 'sound/music/area/caves.ogg'
+// 	droning_sound_dusk = null
+// 	droning_sound_night = null
+// 	converted_type = /area/rogue/outdoors/exposed/under/caves
 
 /area/rogue/outdoors/exposed/under/caves
 	icon_state = "caves"
@@ -62,6 +66,7 @@
 	soundenv = 5
 	town_area = TRUE
 	converted_type = /area/rogue/outdoors/exposed/under/basement
+	deathsight_message = "beneath streets of stone, frequent of blood and steel"
 
 /area/rogue/under/town/basement/keep
 	name = "keep basement"
@@ -69,6 +74,7 @@
 	keep_area = TRUE
 	town_area = TRUE
 	ceiling_protected = TRUE
+	deathsight_message = "beneath royal roses and stone battlements"
 
 /area/rogue/outdoors/exposed/under/basement
 	icon_state = "basement"

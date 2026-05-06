@@ -115,6 +115,6 @@
 
 /area/rogue/outdoors/woods/vampire_lair
 	warden_area = FALSE
-	ambush_times = list()
+	ambush_times = null
 	ambush_mobs = null
 	threat_region = ""
