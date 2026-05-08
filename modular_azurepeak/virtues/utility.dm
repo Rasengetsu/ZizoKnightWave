@@ -280,7 +280,7 @@
 	desc = "You realised long ago that the ability to find a man is as helpful to aid the law as it is to evade it."
 	added_skills = list(list(/datum/skill/misc/tracking, 3, 6))
 	added_traits = list(TRAIT_SLEUTH)
-	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking."
+	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking.\n- As a bonus, you'll be able to read people's noble gossip regardless of <i>your</i> noble status."
 
 /datum/virtue/utility/bronzearm_r
 	name = "Bronze Arm (R)"

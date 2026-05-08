@@ -85,6 +85,7 @@
 	bulb_colour = "#ff9648"
 	cookonme = FALSE
 	crossfire = FALSE
+	density = FALSE
 
 
 /obj/machinery/light/rogue/firebowl/standing/blue

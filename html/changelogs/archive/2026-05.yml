@@ -132,3 +132,57 @@
       claw.
   - qol: Neck slot items (specifically pouches) are now invisible during wildshape.
   - balance: Cabbit form can no longer grab people / mobs.
+2026-05-07:
+  Guidesu:
+  - rscadd: New mount and animal. Giant woolly chafer beetle.
+  Inveldy:
+  - bugfix: Single word change. Replaces "Azuria" with "The vale."
+  IronDragoon:
+  - rscadd: Number of loads and volume of cum are now affected by Con, Good Lover
+      Trait, Ball Size and Penis Type
+  - bugfix: Cumming while knotted should now correctly fill the orifice tied to
+  Jamdrawers:
+  - bugfix: missing candles in the random dungeon generator
+  - bugfix: fixes adjustments for hijabs and keffiyahs
+  KeberosNihilus:
+  - rscadd: New keyring for the Bookworm Heir. Now you've got Mage Tower access!
+  - rscadd: Added the ducal blacksteel staff. Just a copy of the regular blacksteel
+      staff, but now with an extra target painted on whoever holds it.
+  - balance: Reworked the Bookworm Heir into a diet Mage's Apprentice.
+  - balance: +1 Fortune to the Bookworm so their Weighted Stats are +3 instead of
+      +2. Also makes them slightly better at epic stick warfare (they still have no
+      wrestling, so... Just grab them by the scruff).
+  - balance: Aristocrat now has the Tailoring trait so they have their old role of
+      being the dainty knitting lady of the keep back.
+  - balance: Scamp now has 2 knife skill so they don't need to punch a dummy roundstart.
+  - balance: Blacksteel staves now have an increased sale price compared to their
+      mundane counterparts. Uncraftable item, so this mostly just encourages people
+      to mug Grenzelmages and people trying to fashionmax.
+  - bugfix: Daring Twit prince now has Medium Armor training so, like their description
+      says, they are literally just a squire. Mostly.
+  RadiantFlash7:
+  - bugfix: Frostbolt works again
+  WolfOrion:
+  - rscadd: Added a new status effect, as well as face-specific effects
+  - qol: made bedbreaker check for both force level and extreme preferences
+  - image: added a new sprite for the quivering status effect
+  Xander3359:
+  - bugfix: Fixed hoods making you bald when you toggle them
+  hugmeorelse:
+  - bugfix: Fixes Adminhelp Functionality to Match pre-#867 Functionality
+  john-pawson:
+  - rscadd: bigger meals now take more bites to finish
+  - bugfix: fixed missing fares on certain foods
+  - bugfix: fixed missing nutrients on certain foods
+  zeroisthebiggay:
+  - rscadd: major arcana tarot deck
+  - bugfix: makes the iron zcross not a weird subtype
+  - rscadd: compliance vice, take a guess what it does
+2026-05-08:
+  ophaq:
+  - rscadd: Prestidigitation 4th intent. It allows you to put out fires and fill up
+      containers with water (very slow though, not comparable to orison) by shooting
+      a water bolt from your palm. Also tabaxis, cat people, and nobles hate getting
+      shot in the face with it! Gods help you if you are both.
+  zeroisthebiggay:
+  - rscadd: sleuth virtue havers can see people's noble gossip

@@ -1148,6 +1148,9 @@
 		notifyme = client.prefs.compliance_notifs
 
 	if(has_status_effect(/datum/status_effect/compliance))
+		if(HAS_TRAIT(src, TRAIT_COMPLIANT))
+			to_chat(src, span_alert("My vice makes me compliant against my will.")) //only for people who take the compliant vice
+			return
 		src.compliance = 0
 		remove_status_effect(/datum/status_effect/compliance)
 		if(notifyme)
