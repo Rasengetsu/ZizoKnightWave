@@ -54,7 +54,7 @@
 "hK" = (/obj/effect/decal/edge{color = "#3f3f3f"; dir = 8},/obj/machinery/light/roguestreet/orange/walllamp,/turf/open/floor/rogue/cobble,/area/rogue/outdoors/town/rockhill{name = "kingsfield"; first_time_text = "Kingsfield - Garden District"})
 "hU" = (/obj/structure/table/wood/fancy/black,/turf/open/floor/carpet/red,/area/rogue/indoors/town/tavern{name = "Kingsfield Tavern"; first_time_text = "Kingsfield Tavern"})
 "hX" = (/obj/machinery/light/roguestreet/orange/walllamp{dir = 1},/turf/open/floor/rogue/cobble,/area/rogue/outdoors/town/rockhill{name = "kingsfield"; first_time_text = "Kingsfield - Garden District"})
-"ig" = (/obj/structure/roguemachine/withdraw,/obj/structure/fluff/railing/border{dir = 4},/turf/open/floor/rogue/tile/harem,/area/rogue/indoors/town/tavern{name = "Kingsfield Tavern"; first_time_text = "Kingsfield Tavern"})
+"ig" = (/obj/structure/roguemachine/withdraw/kingsfield,/obj/structure/fluff/railing/border{dir = 4},/turf/open/floor/rogue/tile/harem,/area/rogue/indoors/town/tavern{name = "Kingsfield Tavern"; first_time_text = "Kingsfield Tavern"})
 "in" = (/obj/structure/table/wood/map/three,/turf/open/floor/carpet/royalblack,/area/rogue/indoors/town{name = "Ferrentian Diplomatic Headquarters"; first_time_text = "Ferrentian Diplomatic Headquarters"})
 "ip" = (/obj/effect/decal/edge{color = "#3f3f3f"; dir = 8},/obj/machinery/light/roguestreet/orange/midlamp,/turf/open/floor/rogue/cobble,/area/rogue/outdoors/rtfield/rockhill{first_time_text = "Kingsfield - Embassy Row"; name = "kingsfielddiplomaticrow"})
 "iq" = (/obj/structure/chair/bench/church{dir = 4},/turf/open/floor/rogue/cobble,/area/rogue/under/town/basement{name = "kfbasement"})
