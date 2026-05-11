@@ -230,20 +230,3 @@
 	makes_herb = /obj/structure/flora/roguegrass/herb/manabloom
 	seed_identity = "manabloom seeds"
 
-/obj/item/herbseed/pinecone_seeds
-	makes_herb = /obj/structure/flora/roguetree/pine
-	seed_identity = "pinecone seeds"
-
-/obj/item/herbseed/pinecone_seeds/become_plant(obj/structure/soil/soil, to_make)
-	if(ispath(to_make))
-		var/obj/structure/flora/roguetree/pine/newplant = new to_make
-		newplant.icon = 'icons/obj/flora/pines.dmi'
-		var/random_icon = rand(1,4)
-		newplant.icon_state = "pine[random_icon]"
-		newplant.forceMove(get_turf(soil))
-		newplant.pixel_x += rand (-3,3)
-		soil.visible_message(span_info("The [soil] suddenly bursts away to reveal \the [newplant]!"))
-		qdel(soil)
-	else
-		soil.visible_message(span_info("The [soil] suddenly collapses, leaving nothing behind..."))
-		qdel(soil)
