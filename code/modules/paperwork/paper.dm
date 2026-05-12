@@ -132,6 +132,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PaperWriterPanel", "Letter Editor")
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/item/paper/ui_static_data(mob/user)
