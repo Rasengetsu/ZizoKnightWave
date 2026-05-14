@@ -749,11 +749,14 @@ Inquisitorial armory down here
 		visible_message(span_info("[user] warms [src] with [I]."))
 		update_icon()
 
-	if(istype(I, /obj/item/clothing/ring/signet))
-		if(loaded_tallow && heatedup)
-			var/obj/item/clothing/ring/signet/ring = I
-			ring.tallowed = TRUE
-			ring.update_icon()
+	       if(istype(I, /obj/item/clothing/ring/signet))
+		       if(loaded_tallow && istype(loaded_tallow, /obj/item/reagent_containers/food/snacks/tallow/soft))
+			       to_chat(user, span_warning("I must use Inquisitorial Tallow for official missives."))
+			       return
+		       if(loaded_tallow && heatedup)
+			       var/obj/item/clothing/ring/signet/ring = I
+			       ring.tallowed = TRUE
+			       ring.update_icon()
 
 	if(istype(I, /obj/item/seal))
 		if(loaded_tallow && loaded_inquisitorial_tallow)
@@ -781,12 +784,18 @@ Inquisitorial armory down here
 
 /obj/item/inqarticles/tallowpot/update_icon()
 	. = ..()
-	if(loaded_tallow)
-		icon_state = "[initial(icon_state)]_filled"
-		if(heatedup)
-			icon_state = "[initial(icon_state)]_melted"
-	else
-		icon_state = "[initial(icon_state)]"
+	       if(loaded_tallow)
+		       if(istype(loaded_tallow, /obj/item/reagent_containers/food/snacks/tallow/soft)) {
+			       icon_state = "tallowpot_filled_soft"
+			       if(heatedup)
+				       icon_state = "tallowpot_melted_soft"
+		       } else {
+			       icon_state = "[initial(icon_state)]_filled"
+			       if(heatedup)
+				       icon_state = "[initial(icon_state)]_melted"
+		       }
+	       else
+		       icon_state = "[initial(icon_state)]"
 
 
 /obj/item/rope/inqarticles/inquirycord

@@ -4,7 +4,7 @@
 
 /obj/item/seal
 	name = "wax seal"
-	desc = "A small seal for marking official documents. It has a small loop to attach it to a keyring."
+	desc = "A small seal for marking official documents. It has a small loop to attach it to a keyring. A small magical charm lets it tint the wax when heated."
 	icon = 'icons/roguetown/items/stamps.dmi'
 	icon_state = "stamp"
 	item_state = "stamp"
