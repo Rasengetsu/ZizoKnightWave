@@ -79,7 +79,7 @@
 		return
 	if(is_blind(user))
 		return
-	var/new_label = stripped_input(user, "Engrave your seal text (once only):", "Custom Seal Engraving", "", 64)
+	var/new_label = stripped_input(user, "Engrave your seal text (format, a ):", "Custom Seal Engraving", "", 64)
 	if(!new_label)
 		return
 	new_label = trim(STRIP_HTML_SIMPLE(new_label, 64))
@@ -109,12 +109,6 @@
 	craftdiff = 3
 	verbage_simple = "carve"
 	verbage = "carves"
-
-/datum/crafting_recipe/roguetown/survival/custom_seal/TurfCheck(mob/user, turf/T)
-	if(user.get_skill_level(/datum/skill/craft/crafting) < SKILL_LEVEL_JOURNEYMAN)
-		to_chat(user, span_warning("I need Journeyman crafting skill to carve a usable custom seal."))
-		return FALSE
-	return ..()
 
 // Seal of the Crown
 /obj/item/seal/crown

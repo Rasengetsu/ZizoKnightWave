@@ -368,6 +368,7 @@
 		return
 	if(folded)
 		icon_state = folded_icon_state
+		name = "folded parchment"
 		return
 	if(info)
 		icon_state = open_written_icon_state
@@ -385,7 +386,7 @@
 		else
 			. += "<span style='[seal_style]'>It bears an unbroken wax seal of [seal_label].</span>"
 	if(!mailer)
-		if(info)
+		if(info && !folded)
 			. += "<a href='?src=[REF(src)];read=1'>Read</a>"
 	else
 		. += "It's from [mailer], addressed to [mailedto]."
@@ -406,6 +407,9 @@
 			user.adjust_experience(/datum/skill/misc/reading, 2, FALSE)
 		return
 	if(!admin_observer && mailer)
+		return
+	if(folded)
+		to_chat(user, span_warning("I need to unfold [src] first."))
 		return
 	if(seal_label && !seal_broken)
 		to_chat(user, span_warning("The wax seal is still intact. I need to unseal it first."))
