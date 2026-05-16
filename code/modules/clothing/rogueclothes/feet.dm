@@ -183,6 +183,8 @@
 	max_integrity = 50
 	icon_state = "ancientsandals"
 	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 	nudist_approved = TRUE
 
 /obj/item/clothing/shoes/roguetown/sandals/aalloy/ancient
