@@ -523,7 +523,6 @@
 						head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/fluted
 
 	backl = /obj/item/storage/backpack/rogue/satchel
-	wrists = /obj/item/clothing/neck/roguetown/psicross/silver
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	pants = /obj/item/clothing/under/roguetown/tights/puritan
 	cloak = /obj/item/clothing/cloak/cape/puritan
@@ -535,6 +534,12 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/rogueweapon/huntingknife = 1, //Ensures that Exorcists who take the Shovel can still butcher wildlife. Minor oversight on my part.
 		)
+	switch(H.patron?.type)
+		if(/datum/patron/divine/)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/silver/undivided
+		else // I don't know who plays Ascendant Exorcist, but hey, who am I to judge?
+			wrists = /obj/item/clothing/neck/roguetown/psicross/silver
+
 	if(H.age == AGE_OLD)
 		H.change_stat(STATKEY_INT, 1)
 		H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
