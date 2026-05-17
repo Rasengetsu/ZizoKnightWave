@@ -150,12 +150,12 @@
 	cost = 80
 	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/full/bikini)
 
-/datum/supply_pack/rogue/bath_clothes/horsey
-	name = "Bit, Blinders & Barding (full set)"
-	cost = 80
-	contains = list(
-	/obj/item/clothing/gloves/roguetown/leather/horsey = 1,
-	/obj/item/clothing/head/roguetown/horsey = 1,
-	/obj/item/clothing/shoes/roguetown/boots/horsey = 1,
-	/obj/item/clothing/mask/rogue/horsey = 1,
-	/obj/item/clothing/suit/roguetown/armor/leather/studded/bikini/horsey = 1)
+// /datum/supply_pack/rogue/bath_clothes/horsey
+// 	name = "Bit, Blinders & Barding (full set)"
+// 	cost = 80
+// 	contains = list(
+// 	/obj/item/clothing/gloves/roguetown/leather/horsey = 1,
+// 	/obj/item/clothing/head/roguetown/horsey = 1,
+// 	/obj/item/clothing/shoes/roguetown/boots/horsey = 1,
+// 	/obj/item/clothing/mask/rogue/horsey = 1,
+// 	/obj/item/clothing/suit/roguetown/armor/leather/studded/bikini/horsey = 1)
