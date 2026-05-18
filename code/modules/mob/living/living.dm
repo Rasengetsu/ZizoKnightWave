@@ -412,6 +412,7 @@
 			target.visible_message(span_warning("[target] slips from [src]'s grip."), \
 					span_warning("I slip from [src]'s grab."))
 			log_combat(src, target, "tried grabbing", addition="passive grab")
+			stop_pulling()
 			return
 
 		log_combat(src, target, "grabbed", addition="passive grab")
