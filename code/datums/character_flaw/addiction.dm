@@ -53,7 +53,7 @@
 
 /datum/charflaw/addiction/New()
 	..()
-	time = rand(6 MINUTES, 30 MINUTES)
+	time = rand(4 SECONDS, 6 SECONDS)
 	next_sate = world.time + time
 
 // Clean up addiction effects when vice is removed
@@ -90,20 +90,16 @@
 		if(debuff)
 			H.apply_status_effect(debuff)
 
-
-
-/datum/status_effect/debuff/addiction
+/datum/status_effect/debuff/addiction //generic
 	id = "addiction"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction
 	effectedstats = list(STATKEY_WIL = -1,STATKEY_LCK = -1)
 	duration = 100
 
-
-/atom/movable/screen/alert/status_effect/debuff/addiction
+/atom/movable/screen/alert/status_effect/debuff/addiction //generic
 	name = "Addiction"
 	desc = ""
 	icon_state = "debuff"
-
 
 /// ALCOHOLIC
 
@@ -113,7 +109,17 @@
 	time = 40 MINUTES
 	needsate_text = "Time for a drink."
 	stress_event = /datum/stressevent/vice/alcoholic
+	debuff = /datum/status_effect/debuff/addiction/alcoholic
 
+/datum/status_effect/debuff/addiction/alcoholic
+	id = "addiction_alcoholic"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/alcoholic
+	effectedstats = list(STATKEY_INT = -1, STATKEY_WIL = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/alcoholic
+	name = "Alcohol Withdrawal"
+	desc = "I've started to feel hungover. The best way to chase a hangover is another drink."
+	icon_state = "alcoholic"
 
 /// KLEPTOMANIAC
 
@@ -123,7 +129,17 @@
 	time = 30 MINUTES
 	needsate_text = "I need to STEAL something! I'll die if I don't!"
 	stress_event = /datum/stressevent/vice/kleptomaniac
+	debuff = /datum/status_effect/debuff/addiction/kleptomaniac
 
+/datum/status_effect/debuff/addiction/kleptomaniac
+	id = "addiction_kleptomaniac"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/kleptomaniac
+	effectedstats = list(STATKEY_LCK = -2)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/kleptomaniac
+	name = "Kleptomaniac"
+	desc = "I haven't picked any pockets recently. My fingers are itching to steal."
+	icon_state = "kleptomaniac"
 
 /// JUNKIE
 
@@ -133,6 +149,17 @@
 	time = 40 MINUTES
 	needsate_text = "Time to get really high."
 	stress_event = /datum/stressevent/vice/junkie
+	debuff = /datum/status_effect/debuff/addiction/junkie
+
+/datum/status_effect/debuff/addiction/junkie
+	id = "addiction_junkie"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/junkie
+	effectedstats = list(STATKEY_STR = -1, STATKEY_CON = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/junkie
+	name = "Drug Withdrawal"
+	desc = "It's been too long since my last bump. I need a hit of something strong."
+	icon_state = "junkie"
 
 /// Smoker
 
@@ -142,6 +169,17 @@
 	time = 40 MINUTES
 	needsate_text = "Time for a flavorful smoke."
 	stress_event = /datum/stressevent/vice/smoker
+	debuff = /datum/status_effect/debuff/addiction/smoker
+
+/datum/status_effect/debuff/addiction/smoker
+	id = "addiction_smoker"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/smoker
+	effectedstats = list(STATKEY_STR = -1, STATKEY_CON = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/smoker
+	name = "Blacklung"
+	desc = "I need a smoke. Gotta take the edge off."
+	icon_state = "smoker"
 
 /// GOD-FEARING
 
@@ -151,6 +189,17 @@
 	time = 40 MINUTES
 	needsate_text = "Time to pray to my Patron."
 	stress_event = /datum/stressevent/vice/godfearing
+	debuff = /datum/status_effect/debuff/addiction/godfearing
+
+/datum/status_effect/debuff/addiction/godfearing
+	id = "addiction_godfearing"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/godfearing
+	effectedstats = list(STATKEY_WIL = -2)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/godfearing
+	name = "Godfearing"
+	desc = "It's been too long since my last prayer. My patron is going to turn their gaze away from me."
+	icon_state = "godfearing"
 
 /// SADIST
 
@@ -160,6 +209,17 @@
 	time = 40 MINUTES
 	needsate_text = "I need to hear someone whimper."
 	stress_event = /datum/stressevent/vice/sadist
+	debuff = /datum/status_effect/debuff/addiction/sadist
+
+/datum/status_effect/debuff/addiction/sadist
+	id = "addiction_sadist"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/sadist
+	effectedstats = list(STATKEY_WIL = -1, STATKEY_LCK = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/sadist
+	name = "Sadist"
+	desc = "I need to hear someone whimper. Only the cries of another will make me feel better."
+	icon_state = "sadist"
 
 /// MASOCHIST
 
@@ -169,4 +229,34 @@
 	time = 40 MINUTES
 	needsate_text = "I need someone to HURT me."
 	stress_event = /datum/stressevent/vice/masochist
+	debuff = /datum/status_effect/debuff/addiction/masochist
 
+/datum/status_effect/debuff/addiction/masochist
+	id = "addiction_masochist"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/masochist
+	effectedstats = list(STATKEY_CON = -1, STATKEY_WIL = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/masochist
+	name = "Masochist"
+	desc = "I deserve to suffer. No, I NEED to suffer."
+	icon_state = "masochist"
+
+/// NYMPHOMANIAC
+
+/datum/charflaw/addiction/lovefiend
+	name = "Nymphomaniac"
+	desc = "I must make love!"
+	time = 90 MINUTES
+	needsate_text = "I'm feeling randy."
+	stress_event = /datum/stressevent/vice/nympho
+	debuff = /datum/status_effect/debuff/addiction/nympho
+
+/datum/status_effect/debuff/addiction/nympho
+	id = "addiction_nympho"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/nympho
+	effectedstats = list(STATKEY_WIL = -1, STATKEY_LCK = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/nympho
+	name = "Nymphomania"
+	desc = "I must make love. My loins burn with unsated desire."
+	icon_state = "nymphomaniac"

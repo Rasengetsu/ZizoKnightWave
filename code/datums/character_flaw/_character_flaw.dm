@@ -687,13 +687,13 @@ GLOBAL_LIST_INIT(character_flaws, list(
 		if(user.has_stress_event(/datum/stressevent/vice/greedy))
 			to_chat(user, span_blue("[new_mammon_amount] mammons... That's more like it.."))
 		user.remove_stress(/datum/stressevent/vice/greedy)
-		user.remove_status_effect(/datum/status_effect/debuff/addiction)
+		user.remove_status_effect(/datum/status_effect/debuff/addiction/greedy)
 		last_passed_check = world.time
 		do_update_msg = FALSE
 	else
 		// Feel bad
 		user.add_stress(/datum/stressevent/vice/greedy)
-		user.apply_status_effect(/datum/status_effect/debuff/addiction)
+		user.apply_status_effect(/datum/status_effect/debuff/addiction/greedy)
 
 	if(new_mammon_amount == last_checked_mammons)
 		do_update_msg = FALSE
@@ -705,6 +705,16 @@ GLOBAL_LIST_INIT(character_flaws, list(
 			to_chat(user, span_boldwarning("No! My precious mammons..."))
 
 	last_checked_mammons = new_mammon_amount
+
+/datum/status_effect/debuff/addiction/greedy
+	id = "addiction_greedy"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/greedy
+	effectedstats = list(STATKEY_WIL = -1, STATKEY_LCK = -1)
+
+/atom/movable/screen/alert/status_effect/debuff/addiction/greedy
+	name = "Greed"
+	desc = "My coinpurse doesn't jingle. Why even lyve?"
+	icon_state = "greedy"
 
 /datum/charflaw/narcoleptic
 	name = "Narcoleptic"
