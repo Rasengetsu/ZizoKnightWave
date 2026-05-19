@@ -9,6 +9,7 @@
 
 	grid_width = 32
 	grid_height = 64
+	dropshrink = 0.9
 
 /obj/item/bouquet/rosa
 	name = "rosa bouquet"
