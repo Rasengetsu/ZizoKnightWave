@@ -719,6 +719,7 @@
 	item_state = "zizofrogmouth"
 	block2add = FOV_BEHIND
 	max_integrity = ARMOR_INT_HELMET_ANTAG
+	armor = ARMOR_ASCENDANT
 
 /obj/item/clothing/head/roguetown/helmet/heavy/frogmouth/zizo/Initialize(mapload)
 	. = ..()
@@ -776,6 +777,7 @@
 	icon_state = "zizobarbute"
 	max_integrity = ARMOR_INT_HELMET_ANTAG
 	peel_threshold = 4
+	armor = ARMOR_ASCENDANT
 
 /obj/item/clothing/head/roguetown/helmet/heavy/zizo/Initialize(mapload)
 	. = ..()
