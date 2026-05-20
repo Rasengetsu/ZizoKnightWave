@@ -637,11 +637,12 @@
 		*text* : Makes the text <i>italic</i>.<br>
 		%s : Inserts a signature of your name in a foolproof way.<br>
 		((text)) : Decreases the <font size = \"1\">size</font> of the text.<br>
+		%f or %field : Creates a blank write-in field in the final letter.<br>
 		* item : An unordered list item.<br>
 		&nbsp;&nbsp;* item: An unordered list child item.<br>
 		1. item : An ordered list item.<br>
 		--- : Adds a horizontal rule.<br>
-		-=FFFFFFtext=- : Adds a specific <font color = '#FFFFFF'>colour</font> to text.
+		-=862F20text=- : Adds a specific <font color = '#862F20'>colour</font> to text.
 	</BODY></HTML>"}, "window=paper_help")
 
 
