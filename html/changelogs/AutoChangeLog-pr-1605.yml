@@ -1,0 +1,4 @@
+author: "ToothyDeer"
+delete-after: True
+changes:
+  - rscadd: "Adds a Grenzelhoft plumehat w/ no armor values so it may be worn over helmets."
