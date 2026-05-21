@@ -447,7 +447,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		/obj/item/reagent_containers/food/snacks/rogue/carrotcakeslice,
 		/obj/item/reagent_containers/food/snacks/rogue/lemoncakeslice,
 		/obj/item/reagent_containers/food/snacks/rogue/limecakeslice,
-		/obj/item/reagent_containers/food/snacks/rogue/manacakeslice,
 		/obj/item/reagent_containers/food/snacks/rogue/menthacakeslice,
 		/obj/item/reagent_containers/food/snacks/rogue/peacecakeslice,
 		/obj/item/reagent_containers/food/snacks/rogue/raspberrycakeslice,
