@@ -20,7 +20,6 @@ GLOBAL_LIST_INIT(learnable_songs, (list(/obj/effect/proc_holder/spell/invoked/so
 
 GLOBAL_LIST_INIT(learnable_rhythms, (list(/obj/effect/proc_holder/spell/self/rhythm/resonating,
 		/obj/effect/proc_holder/spell/self/rhythm/concussive,
-		/obj/effect/proc_holder/spell/self/rhythm/frigid,
 		/obj/effect/proc_holder/spell/self/rhythm/regenerating,
 		)
 ))
