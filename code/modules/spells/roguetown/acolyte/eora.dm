@@ -537,7 +537,7 @@
 			to_chat(user, span_warning("The tree has been fully pruned already!"))
 			return TRUE
 		var/skill = get_farming_skill(user)
-		var/prune_time = 15 SECONDS - (skill * 2.5 SECONDS)
+		var/prune_time = 10 SECONDS - (skill * 2.5 SECONDS)
 
 		to_chat(user, span_notice("You begin pruning the tree..."))
 
@@ -560,22 +560,20 @@
 			return TRUE
 
 		var/water_type = null
-		if(container.reagents.has_reagent(/datum/reagent/water, 1))
+		if(container.reagents.has_reagent(/datum/reagent/water, 20))
 			water_type = /datum/reagent/water
-		else if(container.reagents.has_reagent(/datum/reagent/water/blessed, 1))
+		else if(container.reagents.has_reagent(/datum/reagent/water/blessed, 20))
 			water_type = /datum/reagent/water/blessed
 
 		if(!water_type)
-			to_chat(user, span_warning("The tree accepts only fresh, clean water."))
+			to_chat(user, span_warning("The tree accepts only fresh, clean or blessed water."))
 			return
 
 		var/remaining_cap = 25 - water_happiness
-		var/skill = get_farming_skill(user)
-		var/potential_gain = 5 + (skill * 4)  // 5 at skill 0, 25 at skill 5+
-		var/actual_gain = min(potential_gain, remaining_cap)
+		var/actual_gain = remaining_cap
 
 		if(do_after(user, 1 SECONDS, target = src))
-			container.reagents.remove_reagent(water_type, 1)
+			container.reagents.remove_reagent(water_type, 20)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				add_sleep_experience(user, /datum/skill/labor/farming, C.STAINT * 0.5)
@@ -589,6 +587,9 @@
 			return TRUE
 
 	if(istype(I, /obj/item/compost) || istype(I, /obj/item/fertilizer))
+		if(istype(I, /obj/item/fertilizer) && growth_stage != FRUITING)
+			to_chat(user, span_warning("The tree won't absorb the fertilizer properly until it is maturing or fully grown."))
+			return TRUE
 
 		if(fertilizer_happiness >= 25)
 			to_chat(user, span_warning("The tree can't absorb any more nutrients right now!"))
@@ -596,7 +597,7 @@
 
 		var/remaining_cap = 25 - fertilizer_happiness
 		var/skill = get_farming_skill(user)
-		var/potential_gain = 5 + (skill * 4)
+		var/potential_gain = max(5 + (skill * 4), 13)  // A maximum of 13 ensures at most 2 applications of compost
 		var/actual_gain = min(potential_gain, remaining_cap)
 
 		if(do_after(user, 1 SECONDS, target = src))
@@ -667,7 +668,7 @@
 		. += span_warning("The leaves are ashen and dampened, emitting no aura. Perhaps more ash can fix this somehow.")
 
 	if(happiness_tier == 1)
-		. += span_warning("The tree seems neglected. Branches are wilted.")
+		. += span_warning("The tree seems neglected.")
 	else if(happiness_tier == 2)
 		. += span_info("The tree appears content and healthy.")
 	else if(happiness_tier == 3)
