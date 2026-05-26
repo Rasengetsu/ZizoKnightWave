@@ -429,6 +429,15 @@
 	. = ..()
 	icon_state = "sparsegrass_[rand(1, 3)]"
 
+/obj/structure/flora/roguegrass/reedbush
+	name = "reed bush"
+	icon = 'icons/obj/flora/ausflora.dmi'
+	icon_state = "reedbush_1"
+
+/obj/structure/flora/roguegrass/reedbush/Initialize(mapload)
+	icon_state = "reedbush_[rand(1, 4)]"
+	. = ..()
+
 /obj/structure/flora/roguegrass/water
 	name = "grass"
 	desc = "This grass is sodden and muddy."
@@ -1275,14 +1284,3 @@
 /obj/structure/flora/roguegrass/jungle/sparse/Initialize(mapload)
 	. = ..()
 	icon_state = "grassb[rand(1, 5)]"
-
-//Roguefiying some more old assets
-
-
-/obj/structure/flora/roguegrass/reedbush
-	icon = 'icons/obj/flora/ausflora.dmi'
-	icon_state = "reedbush_1"
-
-/obj/structure/flora/roguegrass/reedbush/Initialize(mapload)
-	icon_state = "reedbush_[rand(1, 4)]"
-	. = ..()
