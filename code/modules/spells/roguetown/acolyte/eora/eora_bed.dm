@@ -101,38 +101,26 @@
 	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
 		owner.blood_volume = min(owner.blood_volume+healing_on_tick, BLOOD_VOLUME_NORMAL)
 
-/datum/action/cooldown/spell/summon_bed
+/obj/effect/proc_holder/spell/invoked/summon_bed
 	name = "Eora's Rest"
 	desc = "Summon a sacred Eoran bed to provide sanctuary and stabilize the wounded. \
 	You may only maintain a limited amount of beds at a time depending on miracle skill. Summoning a new one will cause the oldest one to vanish."
-	icon_icon = 'icons/mob/actions/roguespells.dmi'
-	button_icon_state = "eorabed" // Replace with your icon state
-	sound = 'sound/magic/holyshield.ogg'
-	spell_color = "#b74ae2"
-
-	primary_resource_type = SPELL_COST_STAMINA
-	primary_resource_cost = SPELLCOST_STAT_BUFF
-
 	invocations = list("Eora, provider of beauty-sleeps!")
-	invocation_type = INVOCATION_SHOUT
-	charge_required = TRUE
-	charge_time = 1 SECONDS
-	cooldown_time = 30 SECONDS
+	sound = 'sound/magic/holyshield.ogg'
+	overlay_state = "eorabed"
+	chargetime = 10
+	recharge_time = 30 SECONDS
 	devotion_cost = 40
-
 	associated_skill = /datum/skill/magic/holy
 	var/list/bed_refs = list()
 
-/datum/action/cooldown/spell/summon_bed/cast(atom/cast_on)
+/obj/effect/proc_holder/spell/invoked/summon_bed/cast(list/targets, mob/living/user)
 	. = ..()
-	var/mob/living/user = owner
-	if(!user)
-		return FALSE
-
-	var/turf/T = get_turf(cast_on) || get_turf(user)
+	var/turf/T = get_turf(targets[1]) || get_turf(user)
 
 	if(!isopenturf(T) || T.density)
 		to_chat(user, span_warning("The ground here is unsuitable for a sanctuary."))
+		revert_cast()
 		return FALSE
 
 	var/max_beds = 1
@@ -162,7 +150,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/summon_bed/Destroy()
+/obj/effect/proc_holder/spell/invoked/summon_bed/Destroy()
 	for(var/datum/weakref/W in bed_refs)
 		var/obj/structure/bed/rogue/eora/B = W.resolve()
 		if(B)
