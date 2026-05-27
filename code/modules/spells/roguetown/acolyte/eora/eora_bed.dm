@@ -146,7 +146,7 @@
 	var/obj/structure/bed/rogue/eora/new_bed = new(T)
 	bed_refs += WEAKREF(new_bed)
 	user.visible_message(span_notice("[user] conjures a beautiful bed of Eoran petals!"), \
-						 span_notice("You summon a sanctuary for the weary."))
+		span_notice("You summon a sanctuary for the weary."))
 
 	return TRUE
 
