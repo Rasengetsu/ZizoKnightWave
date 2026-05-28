@@ -66,7 +66,6 @@
 		if(charflaw && !(charflaw in vices))
 			charflaw.on_removal(src)
 		vices = list()
-		charflaw = null
 		statpack = null
 		headshot_link = null
 
