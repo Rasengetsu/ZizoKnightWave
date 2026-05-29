@@ -66,6 +66,7 @@
 		if(charflaw && !(charflaw in vices))
 			charflaw.on_removal(src)
 		vices = list()
+		charflaw = null
 		headshot_link = null
 
 	// Gnolls should not inherit player-authored social metadata from their base slot.
