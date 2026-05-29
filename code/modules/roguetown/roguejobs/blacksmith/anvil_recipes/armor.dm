@@ -109,21 +109,33 @@
 
 /datum/anvil_recipe/armor/ancient/barbute
 	name = "Barbute, Decrepit (+1 Gilbranze)"
+	additional_items = list(/obj/item/ingot/gilbranze)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/ancient
-	additional_items = /obj/item/ingot/decrepit
 
 /datum/anvil_recipe/armor/decrepit/barbute
 	name = "Barbute, Decrepit (+1 Alloy)"
+	additional_items = list(/obj/item/ingot/decrepit)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/ancient/decrepit
 
 /datum/anvil_recipe/armor/ancient/savoyard
 	name = "Savoyard, Ancient (+1 Gilbranze)"
+	additional_items = list(/obj/item/ingot/gilbranze)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/guard/ancient
-	additional_items = /obj/item/ingot/gilbranze
 
 /datum/anvil_recipe/armor/decrepit/savoyard
 	name = "Savoyard, Decrepit (+1 Alloy)"
+	additional_items = list(/obj/item/ingot/decrepit)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/guard/ancient/decrepit
+
+/datum/anvil_recipe/armor/ancient/bascinet
+	name = "Bascinet, Ancient (+1 Gilbranze)"
+	additional_items = list(/obj/item/ingot/gilbranze)
+	created_item = 	/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient
+
+/datum/anvil_recipe/armor/decrepit/bascinet
+	name = "Bascinet, Decrepit (+1 Alloy)"
+	additional_items = list(/obj/item/ingot/decrepit)
+	created_item = 	/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit
 
 /datum/anvil_recipe/armor/ancient/mask
 	name = "Mask, Ancient"
