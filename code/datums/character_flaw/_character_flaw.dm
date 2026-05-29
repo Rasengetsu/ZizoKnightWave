@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	"Devout Follower"=/datum/charflaw/addiction/godfearing,
 	"Greedy"=/datum/charflaw/greedy,
 	"Marked for Death"=/datum/charflaw/assassintarget,
-	"Hunted (+1 TRI)"=/datum/charflaw/hunted,
+	"Marked by Gnolls"=/datum/charflaw/hunted,
 	"Isolationist"=/datum/charflaw/isolationist,
 	"Junkie"=/datum/charflaw/addiction/junkie,
 	"Lawless"=/datum/charflaw/lawless,
