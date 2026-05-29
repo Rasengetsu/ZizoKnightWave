@@ -167,69 +167,19 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 	
-	/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient
 	name = "ancient bascinet"
 	desc = "An ancient greathelm of polished gilbranze. There is no sight more haunting than that of a noble knight, long-succumbed to the undying forces of evil. Add a feather to show the colors of your family or allegiance."
-	icon_state = "ancientbascinet"
-	item_state = "ancientbascinet"
+	icon_state = "ancientknight"
+	item_state = "ancientknight"
 	smeltresult = /obj/item/ingot/aaslag
 
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/ComponentInitialize()
-	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
-
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/attackby(obj/item/W, mob/living/user, params)
-	..()
-	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in GLOB.colorlist
-		detail_color = GLOB.colorlist[choice]
-		detail_tag = "_detail"
-		user.visible_message(span_warning("[user] adds [W] to [src]."))
-		user.transferItemToLoc(W, src, FALSE, FALSE)
-		update_icon()
-		if(loc == user && ishuman(user))
-			var/mob/living/carbon/H = user
-			H.update_inv_head()
-
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/update_icon()
-	cut_overlays()
-	if(get_detail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
-		pic.appearance_flags = RESET_COLOR
-		if(get_detail_color())
-			pic.color = get_detail_color()
-		add_overlay(pic)
-
-	/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit
 	name = "decrepit bascinet"
 	desc = "A chipped greathelm of frayed bronze. The fittings squeal irritatingly whenever you move to lift its half-rusted visor up and down. Add a feather to show the colors of your family or allegiance."
 	max_integrity = ARMOR_INT_HELMET_HEAVY_DECREPIT
 	color = "#bb9696"
 	anvilrepair = null
-
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit/ComponentInitialize()
-	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
-
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit/attackby(obj/item/W, mob/living/user, params)
-	..()
-	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in GLOB.colorlist
-		detail_color = GLOB.colorlist[choice]
-		detail_tag = "_detail"
-		user.visible_message(span_warning("[user] adds [W] to [src]."))
-		user.transferItemToLoc(W, src, FALSE, FALSE)
-		update_icon()
-		if(loc == user && ishuman(user))
-			var/mob/living/carbon/H = user
-			H.update_inv_head()
-
-/obj/item/clothing/head/roguetown/helmet/heavy/knight/ancient/decrepit/update_icon()
-	cut_overlays()
-	if(get_detail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
-		pic.appearance_flags = RESET_COLOR
-		if(get_detail_color())
-			pic.color = get_detail_color()
-		add_overlay(pic)
 
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/fluted
 	name = "fluted armet"

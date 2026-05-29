@@ -475,6 +475,13 @@ LICH SKELETONS
 			l_hand = /obj/item/rogueweapon/shield/gilbranze/great
 			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
 			H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
+	var/neckwear = list("Coif", "Gorget")
+	var/neckwear_choice = input(H, "Choose your PROTECTION.", "PROTECT THE SACRED LEYLINE.") as anything in neckwear
+	switch(neckwear_choice)
+		if("Coif")
+			neck = /obj/item/clothing/neck/roguetown/chaincoif/ancient
+		if("Gorget")
+			neck = /obj/item/clothing/neck/roguetown/gorget/steel/ancient
 	var/cloaks = list("Jupon", "Tabard", "Cloak", "Shawl")
 	var/cloaks_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in cloaks
 	H.set_blindness(0)
