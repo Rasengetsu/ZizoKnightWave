@@ -16,6 +16,7 @@ LICH SKELETONS
 
 /datum/outfit/job/roguetown/greater_skeleton/lich/pre_equip(mob/living/carbon/human/H)
 	..()
+
 	REMOVE_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_LICHLAIR, TRAIT_GENERIC) //Ability to leave/enter the lich's lair without being softlocked inside.
 
@@ -61,7 +62,13 @@ LICH SKELETONS
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/ancient
 	gloves = /obj/item/clothing/gloves/roguetown/chain/ancient
 
-	backr = /obj/item/rogueweapon/shield/gilbranze
+	r_hand = /obj/item/rogueweapon/shield/gilbranze
+
+	backpack_contents = list(
+		/obj/item/natural/feather = 1,
+		/obj/item/storage/belt/rogue/pouch/coins/gilbranze = 1
+	)
+
 	H.adjust_blindness(-3)
 	var/weapons = list("Gladius","Khopesh","Shortsword","Axe", "Flail")
 	var/weapons_choice = input(H, "Choose your WEAPON.", "RAGE AGAINST THE LYVING.") as anything in weapons
@@ -142,7 +149,7 @@ LICH SKELETONS
 	H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
 
 	H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
@@ -158,6 +165,11 @@ LICH SKELETONS
 	gloves = /obj/item/clothing/gloves/roguetown/chain/ancient
 
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/ancient
+
+	backpack_contents = list(
+		/obj/item/storage/belt/rogue/pouch/coins/gilbranze = 1
+	)
+
 	H.adjust_blindness(-3)
 	var/weapons = list("Recurve Bow","Yew Longbow", "Crossbow", "Sling")
 	var/weapons_choice = input(H, "Choose your WEAPON.", "RAGE AGAINST THE LYVING.") as anything in weapons
@@ -238,12 +250,17 @@ LICH SKELETONS
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/ancient
 	gloves = /obj/item/clothing/gloves/roguetown/plate/ancient
 
+	backpack_contents = list(
+		/obj/item/storage/belt/rogue/pouch/coins/gilbranze = 1
+	)
+
 	H.adjust_blindness(-3)
 	var/weapons = list("Greatsword - +2 STR / +1 SPD / -3 CON", "Grand Mace - +2 STR / +1 SPD / -3 CON", "Spear + Shield - +2 PER / +1 STR / -1 CON", "Bardiche - +2 PER / +1 STR / -1 CON","Mace + Shield - +3 WIL / HEAVY ARMOR", "Warhammer + Shield - +3 WIL / HEAVY ARMOR")
 	var/weapons_choice = input(H, "Choose your DISCIPLINE.", "RAGE AGAINST THE LYVING.") as anything in weapons
 	switch(weapons_choice)
 		if("Greatsword - +2 STR / +1 SPD / -3 CON")
-			r_hand = /obj/item/rogueweapon/greatsword/ancient
+			l_hand = /obj/item/rogueweapon/greatsword/ancient
+			backr = /obj/item/rogueweapon/scabbard/gwstrap
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/half/ancient
 			pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
@@ -252,7 +269,8 @@ LICH SKELETONS
 			H.change_stat(STATKEY_CON, -3)
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 		if("Grand Mace - +2 STR / +1 SPD / -3 CON")
-			r_hand = /obj/item/rogueweapon/mace/goden/steel/ancient
+			l_hand = /obj/item/rogueweapon/mace/goden/steel/ancient
+			backr = /obj/item/rogueweapon/scabbard/gwstrap
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/half/ancient
 			pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
@@ -261,8 +279,9 @@ LICH SKELETONS
 			H.change_stat(STATKEY_CON, -3)
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 		if("Spear + Shield - +2 PER / +1 STR / -1 CON")
-			r_hand = /obj/item/rogueweapon/spear/ancient
-			backr = /obj/item/rogueweapon/shield/gilbranze
+			l_hand = /obj/item/rogueweapon/spear/ancient
+			r_hand = /obj/item/rogueweapon/shield/gilbranze
+			backr = /obj/item/rogueweapon/scabbard/gwstrap
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/half/ancient
 			pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
@@ -272,7 +291,8 @@ LICH SKELETONS
 			H.change_stat(STATKEY_CON, -1)
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 		if("Bardiche - +2 PER / +1 STR / -1 CON")
-			r_hand = /obj/item/rogueweapon/halberd/bardiche/ancient
+			l_hand = /obj/item/rogueweapon/halberd/bardiche/ancient
+			backr = /obj/item/rogueweapon/scabbard/gwstrap
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/half/ancient
 			pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
@@ -281,8 +301,8 @@ LICH SKELETONS
 			H.change_stat(STATKEY_CON, -1)
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 		if("Mace + Shield - +3 WIL / HEAVY ARMOR")
-			r_hand = /obj/item/rogueweapon/mace/steel/ancient
-			backr = /obj/item/rogueweapon/shield/tower/metal/ancient
+			l_hand = /obj/item/rogueweapon/mace/steel/ancient
+			r_hand = /obj/item/rogueweapon/shield/tower/metal/ancient
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/ancient
 			pants = /obj/item/clothing/under/roguetown/platelegs/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -290,8 +310,8 @@ LICH SKELETONS
 			H.change_stat(STATKEY_WIL, 3)
 			ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 		if("Warhammer + Shield - +3 WIL / HEAVY ARMOR")
-			r_hand = /obj/item/rogueweapon/mace/warhammer/steel/ancient
-			backr = /obj/item/rogueweapon/shield/tower/metal/ancient
+			l_hand = /obj/item/rogueweapon/mace/warhammer/steel/ancient
+			r_hand = /obj/item/rogueweapon/shield/tower/metal/ancient
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/ancient
 			pants = /obj/item/clothing/under/roguetown/platelegs/ancient
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -369,7 +389,8 @@ LICH SKELETONS
 	pants = /obj/item/clothing/under/roguetown/trou/artipants/lich
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/ancient
 	gloves = /obj/item/clothing/gloves/roguetown/angle
-	backl = /obj/item/storage/backpack/rogue/backpack
+
+	backr = /obj/item/storage/backpack/rogue/backpack
 
 	backpack_contents = list(
 		/obj/item/rogueweapon/hammer/ancient = 1,
@@ -467,12 +488,12 @@ LICH SKELETONS
 	var/weapon_choice = input(H, "Choose your WEAPON.", "RAGE AGAINST THE LYVING.") as anything in weapons
 	switch(weapon_choice)
 		if("Greatsword")
-			r_hand = /obj/item/rogueweapon/greatsword/ancient
+			l_hand = /obj/item/rogueweapon/greatsword/ancient
 			backr = /obj/item/rogueweapon/scabbard/gwstrap
 			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 		if("Flail + Greatshield")
-			r_hand = /obj/item/rogueweapon/flail/sflail/ancient
-			l_hand = /obj/item/rogueweapon/shield/gilbranze/great
+			l_hand = /obj/item/rogueweapon/flail/sflail/ancient
+			r_hand = /obj/item/rogueweapon/shield/gilbranze/great
 			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
 			H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
 	var/neckwear = list("Coif", "Gorget")
@@ -527,19 +548,19 @@ LICH SKELETONS
 	detail_color = CLOTHING_BURLAP
 
 /obj/item/clothing/cloak/tabard/lich
-	name = "decrepit tabard"
+	name = "ancient tabard"
 	desc = "Roughspun fabrics from beyond your lyfetime, donned by those who once knew of chivalry's allure."
 	color = CLOTHING_BLACK
 	detail_tag = "_quad"
 	detail_color = CLOTHING_BURLAP
 
 /obj/item/clothing/cloak/half/lich
-	name = "decrepit cloak"
+	name = "ancient cloak"
 	desc = "Roughspun fabrics from beyond your lyfetime, donned by those who fear what they've truly become."
 	color = CLOTHING_BLACK
 
 /obj/item/clothing/cloak/thief_cloak/lich
-	name = "decrepit shawl"
+	name = "ancient shawl"
 	desc = "Roughspun fabrics from beyond your lyfetime, donned by those who have embraced the fetters they've truly become."
 	color = CLOTHING_BLACK
 
@@ -552,6 +573,8 @@ LICH SKELETONS
 	dropshrink = 0.8
 	force = 15
 	throwforce = 25 // DO NOT GIVE ANYTHING; BUT TAKE FROM THEM... EVERYTHING!
+	possible_item_intents = list(SHIELD_BASH_METAL, SHIELD_BLOCK, SHIELD_SMASH_METAL)
+	resistance_flags = null
 	coverage = 50
 	attacked_sound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
 	parrysound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
@@ -580,11 +603,14 @@ LICH SKELETONS
 
 /obj/item/rogueweapon/shield/gilbranze/great
 	name = "ancient hoplon greatshield"
-	desc = "A heavy venerable shield, taller and thicker than most of their contemporaries, yet masterfully crafted O' so much more as well. Rebuking arrow and bolt alike \
+	desc = "A heavy venerable shield, far taller and thicker than most other contemporaries, yet masterfully crafted O' so much more as well. Rebuking arrow and bolt alike \
 	and yet it serves in a twisted charge against its old purpose to preserve lyfe, serving as a bulwark to herald the march of HER legionnaires to end lyfe."
 	icon_state = "ancientshgreat"
 	force = 30
 	throwforce = 10
+	throw_speed = 1
+	throw_range = 2
+	wlength = WLENGTH_NORMAL
 	wdefense = 10
 	coverage = 75
 	minstr = 13

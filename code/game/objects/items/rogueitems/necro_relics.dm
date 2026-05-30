@@ -129,5 +129,3 @@
 	if(alert(src, "Do you wish to change your frame?", "Body Type", "Yes", "No") == "Yes")
 		src.gender = (src.gender == MALE) ? FEMALE : MALE
 	src.regenerate_icons()
-	src.dna.species.soundpack_m = new /datum/voicepack/skeleton() // forces the skeleton voicepacks
-	src.dna.species.soundpack_f = new /datum/voicepack/skeleton()

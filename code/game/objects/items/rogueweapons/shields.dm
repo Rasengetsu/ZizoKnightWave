@@ -385,10 +385,18 @@
 
 /obj/item/rogueweapon/shield/buckler/ancient
 	name = "ancient buckler"
-	desc = "An object once before its time, now out of it. The artisan's hammerstrikes are still visible in the mottled surface, yet \
-	the encroach of rust and rot threatens even this memory."
+	desc = "A rounded parrying shield, cast from polished gilbranze. Despite its unseemly, brittle appearance, the scars inflicted by \
+	reflected blades only faintly mar the unnatural craftsmanship."
 	icon_state = "ancient_buckler"
 	smeltresult = /obj/item/ingot/aaslag
+
+/obj/item/rogueweapon/shield/buckler/ancient/decrepit
+	name = "decrepit buckler"
+	desc = "An object once before its time, now out of it. The artisan's hammerstrikes are still visible in the mottled surface, yet \
+	the encroach of rust and rot threatens even this memory."
+	force = 12
+	throwforce = 6
+	max_integrity = 40
 
 /obj/item/rogueweapon/shield/heater
 	name = "heater shield"
