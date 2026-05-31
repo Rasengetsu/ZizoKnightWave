@@ -27,7 +27,6 @@
 	return TRUE
 
 //Unholy Grasp - Throws disappearing net made of viscera at enemy. Creates blood on impact.
-//Unholy Grasp - Throws disappearing net made of viscera at enemy. Creates blood on impact.
 /obj/effect/proc_holder/spell/invoked/projectile/blood_net
 	name = "Unholy Grasp"
 	desc = "Toss forth an unholy snare of blood and guts a short distance, summoned from your leftover trophies sacrificed to Graggar. Like a net, may it snare your target!"
