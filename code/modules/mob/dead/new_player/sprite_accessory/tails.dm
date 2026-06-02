@@ -388,12 +388,12 @@
 
 /datum/sprite_accessory/tail/shadekin
 	name = "Shadekin"
-	icon_state = "m_tail_shadekin"
+	icon_state = "shadekin"
 	can_wag = TRUE
 
 /datum/sprite_accessory/tail/shadekin/short
 	name = "Shadekin (Short)"
-	icon_state = "m_tail_shadekinshort"
+	icon_state = "shadekinshort"
 
 /datum/sprite_accessory/tail/owl
 	name = "Owl"
