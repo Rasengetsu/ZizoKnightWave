@@ -28,7 +28,7 @@
 							/obj/structure/flora/roguegrass/herb/manabloom = 0.05,
 							/obj/item/magic/manacrystal = 0.05,
 							/obj/structure/flora/roguegrass/herb/random = 0.5,
-							/obj/structure/deadbodyrandom/low = 0.7
+							/obj/structure/deadbodyrandom/low = 0.7,
 							/obj/effect/decal/remains/bear = 0.3,)
 	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
 	// 					/turf/open/water/swamp=2,)
