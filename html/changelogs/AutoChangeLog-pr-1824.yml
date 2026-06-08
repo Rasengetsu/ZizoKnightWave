@@ -1,0 +1,6 @@
+author: "zeroisthebiggay"
+delete-after: True
+changes:
+  - balance: "lightning bolt forced click delay reduced from six seconds to two"
+  - balance: "lightning bolt slowdown reduced from six seconds to three"
+  - balance: "lightning bolt multiplicative slowdown reduced from four to two"
