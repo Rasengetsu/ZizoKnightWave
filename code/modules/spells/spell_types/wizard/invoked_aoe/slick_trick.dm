@@ -43,7 +43,7 @@
 			new /obj/effect/temp_visual/slick_warning(O)
 
 			//wait before actually adding the slip for "Slip buffering"
-			addtimer(CALLBACK(O, TYPE_PROC_REF(/turf/open, MakeSpellSlippery), slip_effect_type, slip_effect_duration, 0, slip_effect_duration), pre_slip_buffer_delay)
+			addtimer(CALLBACK(O, TYPE_PROC_REF(/turf/open, MakeSlippery), slip_effect_type, slip_effect_duration, 0, slip_effect_duration), pre_slip_buffer_delay)
 		return TRUE
 	revert_cast()
 	return FALSE
@@ -105,7 +105,7 @@
 			new /obj/effect/temp_visual/slick_warning(O)
 
 			//wait before actually adding the slip for "Slip buffering"
-			addtimer(CALLBACK(O, TYPE_PROC_REF(/turf/open, MakeSpellSlippery), slip_effect_type, slip_effect_duration, 0, slip_effect_duration), pre_slip_buffer_delay)
+			addtimer(CALLBACK(O, TYPE_PROC_REF(/turf/open, MakeSlippery), slip_effect_type, slip_effect_duration, 0, slip_effect_duration), pre_slip_buffer_delay)
 		return TRUE
 	revert_cast()
 	return FALSE
