@@ -418,7 +418,7 @@
 				pathing_frustration++
 				sleep(time_to_wait)
 			continue
-		else if(!step(src, move_dir, cached_multiplicative_slowdown)) // try to move onto or along our path
+		else if(!step(src, move_dir, cached_multiplicative_slowdown) && (next_step.climbable_atom_count > 0)) // try to move onto or along our path
 			for(var/obj/structure/O in next_step)
 				if(O.density && O.climbable)
 					NPC_THINK("MOVEMENT TURN [movement_turn]: Trying to climb over [O]!")
