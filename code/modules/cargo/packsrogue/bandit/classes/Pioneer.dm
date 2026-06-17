@@ -37,6 +37,11 @@
 	name = "Gorget"
 	cost = 20
 	contains = list(/obj/item/clothing/neck/roguetown/gorget)
+	
+/datum/supply_pack/rogue/Pioneer/steelgorget
+	name = "Steel Gorget"
+	cost = 30
+	contains = list(/obj/item/clothing/neck/roguetown/gorget/steel)
 
 /datum/supply_pack/rogue/Pioneer/gorget
 	name = "Steel Coif"
@@ -147,48 +152,48 @@
 
 /datum/supply_pack/rogue/Pioneer/bmbstrap
 	name = "Bombdolier"
-	cost = 70
+	cost = 40 // 70 is far too much, it'd be easier to just make it.
 	contains = list(/obj/item/bmbstrap)
 
 //Meh grenades.
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_smoke
 	name = "Impact grenade (smoke)"
-	cost = 20
+	cost = 15
 	contains = list(/obj/item/impact_grenade/smoke)
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_healing
 	name = "Impact grenade (healing)"
-	cost = 20
+	cost = 15
 	contains = list(/obj/item/impact_grenade/smoke/healing_gas)
 
 //Great grenades.
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_poison
 	name = "Impact grenade (poison)"
-	cost = 45
+	cost = 40
 	contains = list(/obj/item/impact_grenade/smoke/poison_gas)
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_fire
 	name = "Impact grenade (fire)"
-	cost = 45
+	cost = 40
 	contains = list(/obj/item/impact_grenade/smoke/fire_gas)
 
 //Wild grenades.
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_explosion
 	name = "Impact grenade (explosion)"
-	cost = 60
+	cost = 50
 	contains = list(/obj/item/impact_grenade/explosion)
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_blind
 	name = "Impact grenade (blind)"
-	cost = 60
+	cost = 50
 	contains = list(/obj/item/impact_grenade/smoke/blind_gas)
 
 /datum/supply_pack/rogue/Pioneer/impactgrenade_mute
 	name = "Impact grenade (mute)"
-	cost = 20
+	cost = 15
 	contains = list(/obj/item/impact_grenade/smoke/mute_gas)
 
 //WMDs.
@@ -223,7 +228,7 @@
 
 /datum/supply_pack/rogue/Pioneer/smokepowder_flask
 	name = "Smokepowder flask"
-	cost = 150
+	cost = 50
 	contains = list(/obj/item/powderflask)
 
 //WMDs, but shells for the above!!!!
@@ -264,3 +269,8 @@
 	name = "Bombard charge (flare)"
 	cost = 85
 	contains = list(/obj/item/cannonball/flare)
+
+/datum/supply_pack/rogue/Pioneer/bullet_pouch
+	name = "Pouch of Bullets"
+	cost = 25
+	contains = list(/obj/item/quiver/bullet/lead)
