@@ -228,7 +228,7 @@
 
 /datum/supply_pack/rogue/Pioneer/smokepowder_flask
 	name = "Smokepowder flask"
-	cost = 50
+	cost = 100
 	contains = list(/obj/item/powderflask)
 
 //WMDs, but shells for the above!!!!
@@ -269,8 +269,62 @@
 	name = "Bombard charge (flare)"
 	cost = 85
 	contains = list(/obj/item/cannonball/flare)
+	
+// Ranged Weaponry
 
-/datum/supply_pack/rogue/Pioneer/bullet_pouch
-	name = "Pouch of Bullets"
-	cost = 25
-	contains = list(/obj/item/quiver/bullet/lead)
+/datum/supply_pack/rogue/Knave/bow
+	name = "Bow"
+	cost = 10
+	contains = list(/obj/item/gun/ballistic/revolver/grenadelauncher/bow)
+
+/datum/supply_pack/rogue/Knave/crossbow
+	name = "Crossbow"
+	cost = 20
+	contains = list(/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow)
+
+/datum/supply_pack/rogue/Knave/recurvebow
+	name = "Recurve Bow"
+	cost = 20
+	contains = list(/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve)
+
+/datum/supply_pack/rogue/Knave/longbow
+	name = "Longbow"
+	cost = 40
+	contains = list(/obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow)
+
+/datum/supply_pack/rogue/Knave/slurbow
+	name = "Slurbow"
+	cost = 40
+	contains = list(/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/slurbow)
+
+// Ranged Ammunition
+
+/datum/supply_pack/rogue/Knave/quiver
+	name = "Empty Quiver"
+	cost = 5
+	contains = list(/obj/item/quiver)
+
+/datum/supply_pack/rogue/Knave/quivers/arrows
+	name = "Quiver of Arrows"
+	cost = 10
+	contains = list(/obj/item/quiver/arrows)
+
+/datum/supply_pack/rogue/Knave/quivers/bolts
+	name = "Quiver of Bolts"
+	cost = 20
+	contains = list(/obj/item/quiver/bolts)
+
+/datum/supply_pack/rogue/Knave/Sarrows
+	name = "Steel Bodkin Arrow"
+	cost = 3
+	contains = list(/obj/item/ammo_casing/caseless/rogue/arrow/steel)
+	
+/datum/supply_pack/rogue/Knave/pyroarrows // Engineering arrows... they can have them...
+	name = "Pyroclastic Arrow"
+	cost = 3
+	contains = list(/obj/item/ammo_casing/caseless/rogue/arrow/pyro)
+
+/datum/supply_pack/rogue/Knave/pyrobolts
+	name = "Pyroclastic bolt"
+	cost = 3
+	contains = list(/obj/item/ammo_casing/caseless/rogue/bolt/pyro)

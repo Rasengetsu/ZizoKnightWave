@@ -21,6 +21,8 @@
 		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,//For the shovel...
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,//For the backup knives.
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,//For when his backup knives run out of backups.
+		/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,//Sadly, for Joe, he has less than stellar athletics.
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
@@ -59,8 +61,6 @@
 		/obj/item/flint = 1,
 		/obj/item/rogueweapon/hammer/iron = 1,
 		/obj/item/rogueweapon/pick/steel = 1,
-		/obj/item/quiver/bullet/lead = 1,
-		/obj/item/powderflask = 1,
 	)
 
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/pioneer/plant_bogtrap_delayed)
