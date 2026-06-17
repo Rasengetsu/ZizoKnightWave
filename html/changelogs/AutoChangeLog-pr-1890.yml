@@ -1,0 +1,4 @@
+author: "Yuckuza"
+delete-after: True
+changes:
+  - bugfix: "Fixed Drider simplemobs being untameable and unable to be food healed. Feed your new best friend some meat and truffles."
