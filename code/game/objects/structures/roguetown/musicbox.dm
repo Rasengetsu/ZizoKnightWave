@@ -82,8 +82,7 @@
 
 /obj/structure/roguemachine/musicbox/proc/start_playing()
 	playing = TRUE
-	soundloop.mid_sounds = list(curfile)
-	soundloop.cursound = null
+	soundloop.set_mid_sounds(list(curfile))
 	soundloop.volume = curvol
 	soundloop.start()
 	testing("Music: V[soundloop.volume] C[soundloop.cursound] T[soundloop.thingshearing]")
